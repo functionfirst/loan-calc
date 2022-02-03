@@ -1,17 +1,5 @@
 <template>
-  <Dropdown>
-    [flag]
-    GBP
-  </Dropdown>
+  <select class="text-sm px-3">
+    <option>GBP</option>
+  </select>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import Dropdown from '@/components/Dropdown.vue'
-
-export default defineComponent({
-  components: {
-    Dropdown
-  }
-})
-</script>

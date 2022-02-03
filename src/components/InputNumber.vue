@@ -1,7 +1,29 @@
 <template>
-  <input
-    :id="$attrs.id"
+  <BaseInput
+    v-bind="{ id, placeholder }"
     type="number"
-    placeholder="£10,000,000.00"
   />
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import BaseInput from '@/components/BaseInput.vue'
+
+export default defineComponent({
+  components: {
+    BaseInput
+  },
+
+  props: {
+    id: {
+      default: '',
+      type: String
+    },
+
+    placeholder: {
+      default: '',
+      type: String
+    }
+  }
+})
+</script>

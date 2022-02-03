@@ -1,6 +1,11 @@
 <template>
-  <CurrencyDropdown />
-  <InputNumber :id="$attrs.id" />
+  <div class="flex items-stretch">
+    <CurrencyDropdown class="border border-r-0 border-gray-300 rounded-l" />
+    <InputNumber
+      v-bind="{ id, placeholder }"
+      class="flex-1 rounded-l-none"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -13,6 +18,18 @@ export default defineComponent({
   components: {
     CurrencyDropdown,
     InputNumber
+  },
+
+  props: {
+    id: {
+      default: '',
+      type: String
+    },
+
+    placeholder: {
+      default: '',
+      type: String
+    }
   }
 })
 </script>
