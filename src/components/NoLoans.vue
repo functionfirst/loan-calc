@@ -8,7 +8,7 @@
       <IconLicense class="w-24 h-24" />
     </div>
 
-    <p>
+    <p class="text-gray-900">
       You have not created any commercial or personal loan calculations
     </p>
 
