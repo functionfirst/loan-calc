@@ -1,8 +1,8 @@
 <template>
   <div class="max-w-md mx-auto text-center grid gap-6 mt-8">
-    <h1 class="text-2xl font-medium">
+    <Heading>
       No Loan Calculations Created
-    </h1>
+    </Heading>
 
     <div class="mx-auto rounded-full bg-gray-700 flex items-center justify-center text-white h-48 w-48">
       <IconLicense class="w-24 h-24" />
@@ -18,11 +18,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import IconLicense from './IconLicense.vue'
-import StartLoanButton from './StartLoanButton.vue'
+import Heading from '@/components/Heading.vue'
+import IconLicense from '@/components/IconLicense.vue'
+import StartLoanButton from '@/components/StartLoanButton.vue'
 
 export default defineComponent({
   components: {
+    Heading,
     IconLicense,
     StartLoanButton
   }

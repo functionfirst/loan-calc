@@ -1,6 +1,8 @@
 <template>
   <Modal>
-    <h2>Calculate a commercial or personal loan.</h2>
+    <Heading tag="h2">
+      Calculate a commercial or personal loan.
+    </Heading>
 
     <label for="amount">Loan Amount</label>
     <InputCurrency id="amount" />
@@ -28,15 +30,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
-import InputCurrency from './InputCurrency.vue'
-import InputDate from './InputDate.vue'
-import InputPercentage from './InputPercentage.vue'
-import InputText from './InputText.vue'
-import Modal from './Modal.vue'
+import Heading from '@/components/Heading.vue'
+import InputCurrency from '@/components/InputCurrency.vue'
+import InputDate from '@/components/InputDate.vue'
+import InputPercentage from '@/components/InputPercentage.vue'
+import InputText from '@/components/InputText.vue'
+import Modal from '@/components/Modal.vue'
 
 export default defineComponent({
   components: {
+    Heading,
     InputCurrency,
     InputDate,
     InputPercentage,

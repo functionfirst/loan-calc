@@ -1,47 +1,34 @@
 <template>
   <div class="grid gap-6">
-    <div class="flex flex-col md:flex-row gap-6 items-center justify-between bg-white p-6 rounded-sm shadow-sm">
+    <Card class="flex flex-col md:flex-row gap-6 items-center justify-between p-4 md:p-6">
       <div class="flex flex-1 w-full md:w-auto justify-between gap-6">
-        <dl>
-          <dt class="text-lg md:text-2xl">
-            £10,000,000.00
-          </dt>
-          <dd class="text-xs md:text-sm text-gray-900">
-            Loan Amount
-          </dd>
-        </dl>
+        <DescriptionList label="Loan Amount">
+          £10,000,000.00
+        </DescriptionList>
 
-        <dl>
-          <dt class="text-lg md:text-2xl">
-            0.25%
-          </dt>
-          <dd class="text-xs md:text-sm text-gray-900">
-            Base Interest Rate
-          </dd>
-        </dl>
+        <DescriptionList label="Base Interest Rate">
+          0.25%
+        </DescriptionList>
       </div>
 
       <DifferentLenderButton />
-    </div>
+    </Card>
 
-    <div class="shadow-sm rounded-sm overflow-hidden bg-white">
-      <ResponsiveTable>
+    <Card>
+      <RT>
         <template #thead>
-          <ResponsiveTheadCell
-            class="w-1/4 text-left"
-            :pin="true"
-          >
+          <RHCPinned class="w-1/4 text-left">
             Lender
-          </ResponsiveTheadCell>
-          <ResponsiveTheadCell class="w-42">
+          </RHCPinned>
+          <RHC class="w-42">
             Margin
-          </ResponsiveTheadCell>
-          <ResponsiveTheadCell class="w-42">
+          </RHC>
+          <RHC class="w-42">
             Loan Period <span class="block text-xs">in months</span>
-          </ResponsiveTheadCell>
-          <ResponsiveTheadCell class="text-right">
+          </RHC>
+          <RHC class="text-right">
             Total Interest
-          </ResponsiveTheadCell>
+          </RHC>
         </template>
         <template #tbody>
           <tr
@@ -49,47 +36,51 @@
             :key="loan.id"
             :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'"
           >
-            <ResponsiveTbodyCell
-              :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100' "
-              :pin="true"
-            >
+            <RBCPinned :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'">
               <BaseLink :to="`/loan/1`">
                 {{ loan.lender }}
               </BaseLink>
-            </ResponsiveTbodyCell>
-            <ResponsiveTbodyCell class="text-center">
+            </RBCPinned>
+            <RBC class="text-center">
               {{ loan.margin }}%
-            </ResponsiveTbodyCell>
-            <ResponsiveTbodyCell class="text-center">
+            </RBC>
+            <RBC class="text-center">
               {{ loan.period }}
-            </ResponsiveTbodyCell>
-            <ResponsiveTbodyCell class="text-right">
-              {{ loan.interest.currency }}
-              {{ loan.interest.amount }}
-            </ResponsiveTbodyCell>
+            </RBC>
+            <RBC class="text-right">
+              {{ loan.interest.currency }}{{ loan.interest.amount }}
+            </RBC>
           </tr>
         </template>
-      </ResponsiveTable>
-    </div>
+      </RT>
+    </Card>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import BaseLink from './BaseLink.vue'
-import DifferentLenderButton from './DifferentLenderButton.vue'
-import ResponsiveTable from '@/components/ResponsiveTable.vue'
-import ResponsiveTbodyCell from '@/components/ResponsiveTbodyCell.vue'
-import ResponsiveTheadCell from '@/components/ResponsiveTheadCell.vue'
+import BaseLink from '@/components/BaseLink.vue'
+import Card from '@/components/Card.vue'
+import DescriptionList from '@/components/DescriptionList.vue'
+import DifferentLenderButton from '@/components/DifferentLenderButton.vue'
+import RT from '@/components/ResponsiveTable.vue'
+import RBC from '@/components/ResponsiveBodyCell.vue'
+import RBCPinned from '@/components/ResponsiveBodyCellPinned.vue'
+import RHC from '@/components/ResponsiveHeadCell.vue'
+import RHCPinned from '@/components/ResponsiveHeadCellPinned.vue'
 
 export default defineComponent({
   components: {
     BaseLink,
+    Card,
+    DescriptionList,
     DifferentLenderButton,
-    ResponsiveTable,
-    ResponsiveTbodyCell,
-    ResponsiveTheadCell
+    RT,
+    RBC,
+    RBCPinned,
+    RHC,
+    RHCPinned
   },
   setup () {
     const loans = [

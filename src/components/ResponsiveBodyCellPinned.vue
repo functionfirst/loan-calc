@@ -1,17 +1,16 @@
 <template>
-  <Dropdown>
-    [flag]
-    GBP
-  </Dropdown>
+  <RBC class="sticky left-0 z-10">
+    <slot />
+  </RBC>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Dropdown from '@/components/Dropdown.vue'
+import RBC from '@/components/ResponsiveBodyCell.vue'
 
 export default defineComponent({
   components: {
-    Dropdown
+    RBC
   }
 })
 </script>
