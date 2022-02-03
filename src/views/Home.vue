@@ -1,22 +1,25 @@
 <template>
-  <CalculateLoanModal class="hidden" />
-
-  <NoLoans class="hidden" />
-
-  <CurrentLoans />
+  <CurrentLoans v-if="loans.length" />
+  <NoLoans v-else />
 </template>
 
-<script>
-import CalculateLoanModal from '@/components/CalculateLoanModal'
+<script lang="ts">
+import { defineComponent } from 'vue'
 import CurrentLoans from '@/components/CurrentLoans.vue'
 import NoLoans from '@/components/NoLoans.vue'
 
-export default {
-  name: 'Home',
+export default defineComponent({
   components: {
-    CalculateLoanModal,
     CurrentLoans,
     NoLoans
+  },
+
+  setup () {
+    const loans: string[] = ['replace this']
+
+    return {
+      loans
+    }
   }
-}
+})
 </script>
