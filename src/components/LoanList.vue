@@ -25,113 +25,51 @@
     </div>
 
     <div class="shadow-sm rounded-sm overflow-hidden bg-white">
-      <div class="overflow-auto snap-both max-h-96 md:max-h-full">
-        <table
-          class="text-sm"
-          width="100%"
-          cellspacing="0"
-          cellpadding="0"
-        >
-          <thead class="relative z-40">
-            <tr>
-              <th class="whitespace-nowrap bg-gray-50 border-b  border-gray-300 snap-start sticky top-0 left-0 z-50 font-medium py-2 px-4 text-left w-1/4">
-                Lender
-              </th>
-              <th class="whitespace-nowrap bg-gray-50 border-b border-gray-300 snap-start sticky top-0 font-medium py-2 px-4 w-42">
-                Margin
-              </th>
-              <th class="whitespace-nowrap bg-gray-50 border-b border-gray-300 snap-start sticky top-0 font-medium py-2 px-4 w-42">
-                Loan Period <span class="block text-xs">in months</span>
-              </th>
-              <th class="whitespace-nowrap bg-gray-50 border-b border-gray-300 snap-start sticky top-0 font-medium py-2 px-4 text-right">
-                Total Interest
-              </th>
-            </tr>
-          </thead>
-          <tbody class="z-10 relative">
-            <tr class="bg-white">
-              <th class="snap-start sticky left-0 py-2 px-4 bg-white">
-                <BaseLink :to="`/loan/1`">
-                  Unnamed
-                </BaseLink>
-              </th>
-              <td class="snap-start py-2 px-4 text-center">
-                2.5%
-              </td>
-              <td class="snap-start py-2 px-4 text-center">
-                60
-              </td>
-              <td class="snap-start py-2 px-4 text-right">
-                £1,375,000.00
-              </td>
-            </tr>
-            <tr class="bg-gray-50">
-              <th class="snap-start sticky left-0 py-2 px-4 bg-gray-50">
-                <BaseLink :to="`/loan/1`">
-                  Unnamed
-                </BaseLink>
-              </th>
-              <td class="snap-start py-2 px-4 text-center">
-                2.5%
-              </td>
-              <td class="snap-start py-2 px-4 text-center">
-                60
-              </td>
-              <td class="snap-start py-2 px-4 text-right">
-                £1,375,000.00
-              </td>
-            </tr>
-            <tr class="bg-white">
-              <th class="snap-start sticky left-0 py-2 px-4 bg-white">
-                <BaseLink :to="`/loan/1`">
-                  Unnamed
-                </BaseLink>
-              </th>
-              <td class="snap-start py-2 px-4 text-center">
-                2.5%
-              </td>
-              <td class="snap-start py-2 px-4 text-center">
-                60
-              </td>
-              <td class="snap-start py-2 px-4 text-right">
-                £1,375,000.00
-              </td>
-            </tr>
-            <tr class="bg-gray-50">
-              <th class="snap-start sticky left-0 py-2 px-4 bg-gray-50">
-                <BaseLink :to="`/loan/1`">
-                  Unnamed
-                </BaseLink>
-              </th>
-              <td class="snap-start py-2 px-4 text-center">
-                2.5%
-              </td>
-              <td class="snap-start py-2 px-4 text-center">
-                60
-              </td>
-              <td class="snap-start py-2 px-4 text-right">
-                £1,375,000.00
-              </td>
-            </tr>
-            <tr>
-              <th class="snap-start sticky left-0 py-2 px-4 bg-white">
-                <BaseLink :to="`/loan/1`">
-                  Unnamed
-                </BaseLink>
-              </th>
-              <td class="snap-start py-2 px-4 text-center">
-                2.5%
-              </td>
-              <td class="snap-start py-2 px-4 text-center">
-                60
-              </td>
-              <td class="snap-start py-2 px-4 text-right">
-                £1,375,000.00
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <ResponsiveTable>
+        <template #thead>
+          <ResponsiveTheadCell
+            class="w-1/4 text-left"
+            :pin="true"
+          >
+            Lender
+          </ResponsiveTheadCell>
+          <ResponsiveTheadCell class="w-42">
+            Margin
+          </ResponsiveTheadCell>
+          <ResponsiveTheadCell class="w-42">
+            Loan Period <span class="block text-xs">in months</span>
+          </ResponsiveTheadCell>
+          <ResponsiveTheadCell class="text-right">
+            Total Interest
+          </ResponsiveTheadCell>
+        </template>
+        <template #tbody>
+          <tr
+            v-for="(loan, index) in loans"
+            :key="loan.id"
+            :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'"
+          >
+            <ResponsiveTbodyCell
+              :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100' "
+              :pin="true"
+            >
+              <BaseLink :to="`/loan/1`">
+                {{ loan.lender }}
+              </BaseLink>
+            </ResponsiveTbodyCell>
+            <ResponsiveTbodyCell class="text-center">
+              {{ loan.margin }}%
+            </ResponsiveTbodyCell>
+            <ResponsiveTbodyCell class="text-center">
+              {{ loan.period }}
+            </ResponsiveTbodyCell>
+            <ResponsiveTbodyCell class="text-right">
+              {{ loan.interest.currency }}
+              {{ loan.interest.amount }}
+            </ResponsiveTbodyCell>
+          </tr>
+        </template>
+      </ResponsiveTable>
     </div>
   </div>
 </template>
@@ -141,11 +79,45 @@ import { defineComponent } from 'vue'
 
 import BaseLink from './BaseLink.vue'
 import DifferentLenderButton from './DifferentLenderButton.vue'
+import ResponsiveTable from '@/components/ResponsiveTable.vue'
+import ResponsiveTbodyCell from '@/components/ResponsiveTbodyCell.vue'
+import ResponsiveTheadCell from '@/components/ResponsiveTheadCell.vue'
 
 export default defineComponent({
   components: {
     BaseLink,
-    DifferentLenderButton
+    DifferentLenderButton,
+    ResponsiveTable,
+    ResponsiveTbodyCell,
+    ResponsiveTheadCell
+  },
+  setup () {
+    const loans = [
+      {
+        id: 1,
+        lender: 'Unnamed',
+        margin: 2.5,
+        period: 60,
+        interest: {
+          amount: 137500000,
+          currency: 'GBP'
+        }
+      },
+      {
+        id: 2,
+        lender: 'Unnamed',
+        margin: 3.2,
+        period: 48,
+        interest: {
+          amount: 126800000,
+          currency: 'GBP'
+        }
+      }
+    ]
+
+    return {
+      loans
+    }
   }
 })
 </script>
