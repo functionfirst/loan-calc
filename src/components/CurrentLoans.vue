@@ -1,9 +1,11 @@
 <template>
-  <h1>
-    Your Loan Calculations
-  </h1>
+  <div class="flex flex-col md:flex-row gap-2 items-center justify-between mb-6">
+    <h1 class="text-2xl font-medium">
+      Your Loan Calculations
+    </h1>
 
-  <StartLoanButton />
+    <StartLoanButton />
+  </div>
 
   <!-- @todo loop over this for each loan set -->
   <LoanList />

@@ -1,6 +1,7 @@
 <template>
-  <CalculateLoanModal />
-  <NoLoans />
+  <CalculateLoanModal class="hidden" />
+
+  <NoLoans class="hidden" />
 
   <CurrentLoans />
 </template>
