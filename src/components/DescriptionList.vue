@@ -10,13 +10,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+
+type ISize = 'lg' | 'md'
 
 export default defineComponent({
   props: {
     size: {
       default: 'lg',
-      type: String
+      type: String as PropType<ISize>
     }
   },
   setup (props) {
