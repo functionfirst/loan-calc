@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <BaseInput
-      v-bind="{ id, placeholder }"
+      v-bind="{ id, placeholder, required }"
       type="number"
       min="0"
       class="rounded-r-none"
@@ -35,6 +35,11 @@ export default defineComponent({
     placeholder: {
       default: '',
       type: String
+    },
+
+    required: {
+      default: false,
+      type: Boolean
     }
   }
 })

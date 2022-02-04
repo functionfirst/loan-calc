@@ -14,7 +14,8 @@
         </BaseLabel>
         <InputCurrency
           id="amount"
-          placeholder="Enter  loan amount"
+          placeholder="Enter loan amount"
+          required
         />
       </FormRow>
 
@@ -22,14 +23,20 @@
         <BaseLabel for="startDate">
           Start Date
         </BaseLabel>
-        <InputDate id="startDate" />
+        <InputDate
+          id="startDate"
+          required
+        />
       </FormRow>
 
       <FormRow>
         <BaseLabel for="endDate">
           End Date
         </BaseLabel>
-        <InputDate id="endDate" />
+        <InputDate
+          id="endDate"
+          required
+        />
       </FormRow>
 
       <FormRow>
@@ -39,6 +46,7 @@
         <InputPercentage
           id="margin"
           placeholder="0.00"
+          required
         />
       </FormRow>
 
@@ -49,6 +57,7 @@
         <InputPercentage
           id="baseInterestRate"
           placeholder="0.00"
+          required
         />
       </FormRow>
 

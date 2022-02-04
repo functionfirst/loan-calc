@@ -2,7 +2,7 @@
   <div class="flex items-stretch">
     <CurrencyDropdown class="border border-r-0 border-gray-300 rounded-l" />
     <InputNumber
-      v-bind="{ id, placeholder }"
+      v-bind="{ id, placeholder, required }"
       class="flex-1 rounded-l-none"
     />
   </div>
@@ -29,6 +29,11 @@ export default defineComponent({
     placeholder: {
       default: '',
       type: String
+    },
+
+    required: {
+      default: false,
+      type: Boolean
     }
   }
 })
