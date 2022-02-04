@@ -14,6 +14,7 @@
         </BaseLabel>
         <InputCurrency
           id="amount"
+          v-model="loan.amount"
           placeholder="Enter loan amount"
           required
         />
@@ -25,6 +26,7 @@
         </BaseLabel>
         <InputDate
           id="startDate"
+          v-model="loan.startDate"
           required
         />
       </FormRow>
@@ -35,6 +37,7 @@
         </BaseLabel>
         <InputDate
           id="endDate"
+          v-model="loan.endDate"
           required
         />
       </FormRow>
@@ -45,6 +48,7 @@
         </BaseLabel>
         <InputPercentage
           id="margin"
+          v-model="loan.margin"
           placeholder="0.00"
           required
         />
@@ -56,6 +60,7 @@
         </BaseLabel>
         <InputPercentage
           id="baseInterestRate"
+          v-model="loan.baseInterestRate"
           placeholder="0.00"
           required
         />
@@ -67,6 +72,7 @@
         </BaseLabel>
         <InputText
           id="lenderName"
+          v-model="loan.lender"
           placeholder="(optional)"
         />
       </FormRow>
@@ -82,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import BaseLabel from '@/components/BaseLabel.vue'
 import FormRow from '@/components/FormRow.vue'
 import Heading from '@/components/Heading.vue'
@@ -104,6 +110,20 @@ export default defineComponent({
     InputText,
     Modal,
     PrimaryButton
+  },
+  setup () {
+    const loan = reactive({
+      amount: 0,
+      startDate: '',
+      endDate: '',
+      margin: 0,
+      baseInterestRate: 0,
+      lender: ''
+    })
+
+    return {
+      loan
+    }
   }
 })
 </script>

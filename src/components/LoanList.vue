@@ -33,7 +33,7 @@
             {{ loan.period }}
           </RBC>
           <RBC class="text-right">
-            {{ loan.interest.currency }}{{ loan.interest.amount }}
+            {{ loan.totalInterest.currency }}{{ loan.totalInterest.amount }}
           </RBC>
         </tr>
       </template>
@@ -69,7 +69,7 @@ export default defineComponent({
         lender: 'Unnamed',
         margin: 2.5,
         period: 60,
-        interest: {
+        totalInterest: {
           amount: 137500000,
           currency: 'GBP'
         }
@@ -79,7 +79,7 @@ export default defineComponent({
         lender: 'Unnamed',
         margin: 3.2,
         period: 48,
-        interest: {
+        totalInterest: {
           amount: 126800000,
           currency: 'GBP'
         }
