@@ -1,7 +1,7 @@
 <template>
-  <Heading tag="h2">
+  <HeadingWithMargin tag="h2">
     Loan Details
-  </Heading>
+  </HeadingWithMargin>
 
   <LoanSetHeading />
 
@@ -10,13 +10,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Heading from '@/components/Heading.vue'
+import HeadingWithMargin from '@/components/HeadingWithMargin.vue'
 import LoanList from '@/components/LoanList.vue'
 import LoanSetHeading from '@/components/LoanSetHeading.vue'
 
 export default defineComponent({
   components: {
-    Heading,
+    HeadingWithMargin,
     LoanList,
     LoanSetHeading
   }

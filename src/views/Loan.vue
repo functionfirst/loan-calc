@@ -13,9 +13,9 @@
       </BaseLink>
     </header>
 
-    <Heading tag="h2">
+    <HeadingWithMargin tag="h2">
       {{ lender }}
-    </Heading>
+    </HeadingWithMargin>
 
     <Card class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-center p-4 md:p-6">
       <DescriptionList
@@ -55,9 +55,9 @@
       </div>
     </Card>
 
-    <Heading tag="h2">
+    <HeadingWithMargin tag="h2">
       Breakdown of loan over its lifetime
-    </Heading>
+    </HeadingWithMargin>
 
     <Card class="flex-1 overflow-hidden">
       <RT class="text-right">
@@ -117,6 +117,7 @@ import BaseLink from '@/components/BaseLink.vue'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
 import Heading from '@/components/Heading.vue'
+import HeadingWithMargin from '@/components/HeadingWithMargin.vue'
 import IconPencil from '@/components/IconPencil.vue'
 import SecondaryButton from '@/components/SecondaryButton.vue'
 import RT from '@/components/ResponsiveTable.vue'
@@ -131,6 +132,7 @@ export default defineComponent({
     Card,
     DescriptionList,
     Heading,
+    HeadingWithMargin,
     IconPencil,
     SecondaryButton,
     RT,
