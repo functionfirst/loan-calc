@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col relative max-h-screen p-4 md:p-6">
-    <header>
+    <header class="mb-6">
       <Heading>
-        Loan Details
+        {{ lender }} - Loan Details
       </Heading>
 
       <BaseLink
@@ -12,10 +12,6 @@
         &larr; Back to Loan Calculations
       </BaseLink>
     </header>
-
-    <HeadingWithMargin tag="h2">
-      {{ lender }}
-    </HeadingWithMargin>
 
     <Card class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-center p-4 md:p-6">
       <DescriptionList
