@@ -1,5 +1,5 @@
 <template>
-  <header class="flex flex-col md:flex-row gap-2 xitems-center justify-between mb-6">
+  <header class="flex flex-col md:flex-row gap-2 items-center md:items-start justify-between mb-6">
     <Heading class="text-center md:text-left">
       Your Loan Calculations
     </Heading>
