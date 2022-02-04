@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-auto snap-both max-h-96 md:max-h-full">
+  <div class="overflow-auto snap-both max-h-96">
     <table
       class="text-sm"
       width="100%"

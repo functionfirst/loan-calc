@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <header class="mb-6">
+  <div class="flex flex-col relative max-h-screen p-4 md:p-6">
+    <header>
       <Heading>
         Loan Details
       </Heading>
@@ -13,34 +13,38 @@
       </BaseLink>
     </header>
 
-    <Card class="grid grid-cols-2 md:grid-cols-3 gap-6 items-center p-4 md:p-6">
+    <Heading tag="h2">
+      {{ lender }}
+    </Heading>
+
+    <Card class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-center p-4 md:p-6">
       <DescriptionList
         label="Loan Amount"
         class="col-span-2 md:col-span-1"
       >
-        £10,000,000.00
+        {{ loan.currency }}{{ loan.amount }}
       </DescriptionList>
 
       <DescriptionList label="Margin">
-        3%
+        {{ margin }}%
       </DescriptionList>
 
       <DescriptionList label="Base Interest Rate">
-        0.5%
+        {{ baseInterestRate }}%
       </DescriptionList>
 
       <DescriptionList
         label="Start Date"
         size="md"
       >
-        12th Dec 2021
+        {{ startDate }}
       </DescriptionList>
 
       <DescriptionList
         label="End Date"
         size="md"
       >
-        12th Dec 2022
+        {{ endDate }}
       </DescriptionList>
 
       <div class="col-span-2 md:col-span-1">
@@ -51,14 +55,11 @@
       </div>
     </Card>
 
-    <Heading
-      tag="h2"
-      class="mt-6 mb-4"
-    >
+    <Heading tag="h2">
       Breakdown of loan over its lifetime
     </Heading>
 
-    <Card>
+    <Card class="flex-1 overflow-hidden">
       <RT class="text-right">
         <template #thead>
           <RHCPinned class="text-center w-32 whitespace-pre-line">
@@ -100,7 +101,7 @@
       </RT>
     </Card>
 
-    <div class="flex items-center justify-between md:justify-end gap-6 p-4 md:p-6">
+    <div class="z-10 sticky bottom-0 flex items-center justify-between md:justify-end gap-6 mt-4 md:mt-6 px-4 md:px-6">
       <h3>Total Interest:</h3>
 
       <p class="font-bold">
@@ -111,7 +112,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import BaseLink from '@/components/BaseLink.vue'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
@@ -138,46 +139,58 @@ export default defineComponent({
     RHC,
     RHCPinned
   },
-  setup () {
-    const breakdown = [
-      {
-        interest: {
-          amount: 30000,
-          currency: 'GBP'
-        },
-        withoutMargin: {
-          amount: 15000,
-          currency: 'GBP'
-        },
-        withMargin: {
-          amount: 30000,
-          currency: 'GBP'
-        }
-      },
-      {
-        interest: {
-          amount: 60000,
-          currency: 'GBP'
-        },
-        withoutMargin: {
-          amount: 15000,
-          currency: 'GBP'
-        },
-        withMargin: {
-          amount: 15000,
-          currency: 'GBP'
-        }
-      }
-    ]
 
-    const totalInterest = {
-      amount: 137500000,
-      currency: 'GBP'
-    }
+  setup () {
+    // @todo replace with dynamic fetch
+    const loan = reactive({
+      lender: 'Unnamed',
+      loan: {
+        amount: 1000000000,
+        currency: 'GBP'
+      },
+      startDate: new Date().toDateString(),
+      endDate: new Date().toDateString(),
+      baseInterestRate: 0.25,
+      margin: 3,
+      periodInMonths: 60,
+      totalInterest: {
+        amount: 137500000,
+        currency: 'GBP'
+      },
+      breakdown: [
+        {
+          interest: {
+            amount: 30000,
+            currency: 'GBP'
+          },
+          withoutMargin: {
+            amount: 15000,
+            currency: 'GBP'
+          },
+          withMargin: {
+            amount: 30000,
+            currency: 'GBP'
+          }
+        },
+        {
+          interest: {
+            amount: 60000,
+            currency: 'GBP'
+          },
+          withoutMargin: {
+            amount: 15000,
+            currency: 'GBP'
+          },
+          withMargin: {
+            amount: 15000,
+            currency: 'GBP'
+          }
+        }
+      ]
+    })
 
     return {
-      breakdown,
-      totalInterest
+      ...toRefs(loan)
     }
   }
 })

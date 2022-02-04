@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-4 md:p-6">
     <CurrentLoans v-if="loans.length" />
     <NoLoans v-else />
   </div>

@@ -28,7 +28,7 @@ export default defineComponent({
 
     switch (props.tag) {
       case 'h2':
-        tagCss.push('font-bold')
+        tagCss.push('font-bold', 'mt-6', 'mb-1')
         break
       default:
         tagCss.push('text-2xl', 'font-medium')
