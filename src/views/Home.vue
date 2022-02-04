@@ -1,6 +1,8 @@
 <template>
-  <CurrentLoans v-if="loans.length" />
-  <NoLoans v-else />
+  <div>
+    <CurrentLoans v-if="loans.length" />
+    <NoLoans v-else />
+  </div>
 </template>
 
 <script lang="ts">

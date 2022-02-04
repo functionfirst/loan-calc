@@ -1,6 +1,13 @@
 <template>
   <div class="mx-auto max-w-5xl">
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <component :is="Component" />
+      </transition>
+    </router-view>
 
     <CalculateLoanModal />
   </div>
