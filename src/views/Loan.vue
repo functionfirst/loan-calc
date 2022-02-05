@@ -44,7 +44,10 @@
       </DescriptionList>
 
       <div class="col-span-2 md:col-span-1">
-        <SecondaryButton class="mx-auto md:mx-0 justify-center">
+        <SecondaryButton
+          class="mx-auto md:mx-0 justify-center"
+          @click="setIsOpen(true)"
+        >
           <IconPencil class="h-6 w-6" />
           Edit Loan Details
         </SecondaryButton>
@@ -109,6 +112,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
+import useModal from '@/composables/useModal'
 import BaseLink from '@/components/BaseLink.vue'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
@@ -139,6 +143,7 @@ export default defineComponent({
   },
 
   setup () {
+    const { setIsOpen } = useModal()
     // @todo replace with dynamic fetch
     const loan = reactive({
       lender: 'Unnamed',
@@ -188,6 +193,7 @@ export default defineComponent({
     })
 
     return {
+      setIsOpen,
       ...toRefs(loan)
     }
   }

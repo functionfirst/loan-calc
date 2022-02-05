@@ -8,12 +8,12 @@
     leave-to-class="opacity-0 -translate-y-12"
   >
     <div
-      v-show="open"
+      v-show="isOpen"
       class="fixed bg-white p-6 md:p-8 shadow-md max-w-md z-50 inset-x-0 top-0 md:top-8 m-auto max-h-screen overflow-auto"
     >
       <button
         class="h-12 w-12 flex items-center justify-center -mt-6 md:-mt-8 float-right -mr-6 md:-mr-8"
-        @click="open = false"
+        @click="setIsOpen(false)"
       >
         <IconX class="h-6  w-6" />
       </button>
@@ -29,16 +29,17 @@
     leave-to-class="opacity-0"
   >
     <div
-      v-show="open"
-      class="bg-black fixed inset-0 z-40 bg-opacity-75"
-      @click="open = false"
+      v-show="isOpen"
+      class="bg-black cursor-pointer fixed inset-0 z-40 bg-opacity-75"
+      @click="setIsOpen(false)"
     />
   </transition>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import IconX from '@/components/IconX.vue'
+import useModal from '@/composables/useModal'
 
 export default defineComponent({
   components: {
@@ -46,10 +47,11 @@ export default defineComponent({
   },
 
   setup () {
-    const open = ref(true)
+    const { setIsOpen, isOpen } = useModal()
 
     return {
-      open
+      setIsOpen,
+      isOpen
     }
   }
 })
