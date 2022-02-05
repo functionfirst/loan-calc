@@ -3,8 +3,11 @@
     <dt :class="css">
       <slot />
     </dt>
-    <dd class="text-xs md:text-sm text-gray-900">
-      {{ $attrs.label }}
+    <dd
+      v-if="label"
+      class="text-xs md:text-sm text-gray-900"
+    >
+      {{ label }}
     </dd>
   </dl>
 </template>
@@ -16,11 +19,17 @@ type ISize = 'lg' | 'md'
 
 export default defineComponent({
   props: {
+    label: {
+      default: '',
+      type: String
+    },
+
     size: {
       default: 'lg',
       type: String as PropType<ISize>
     }
   },
+
   setup (props) {
     const size = {
       lg: 'text-lg md:text-2xl',
