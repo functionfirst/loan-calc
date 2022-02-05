@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, watch } from 'vue'
 import IconX from '@/components/IconX.vue'
 import useModal from '@/composables/useModal'
 
@@ -47,7 +47,21 @@ export default defineComponent({
   },
 
   setup () {
+    const ESCAPE = 'Escape'
     const { setIsOpen, isOpen } = useModal()
+
+    const escapeKey = (event: Event): void => {
+      const e = event as KeyboardEvent
+      if (e.key !== ESCAPE) { return }
+      setIsOpen(false)
+    }
+
+    const closeModalOnEscape = (isOpen: boolean) => {
+      const action = isOpen ? 'addEventListener' : 'removeEventListener'
+      document[action]('keyup', escapeKey)
+    }
+
+    watch(isOpen, closeModalOnEscape)
 
     return {
       setIsOpen,
