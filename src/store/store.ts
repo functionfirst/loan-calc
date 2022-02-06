@@ -6,9 +6,9 @@ import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, IDifferen
 const debug = process.env.NODE_ENV !== 'production'
 
 const formData = {
-  id: 0,
+  id: '',
   loanAmount: new Money({
-    amount: 1000000,
+    amount: 0,
     currency: 'GBP' as ICurrency
   }),
   baseInterestRate: '',
@@ -18,73 +18,11 @@ const formData = {
   margin: ''
 }
 
-const loan1 = {
-  id: 1,
-  lender: 'HSBC',
-  loanAmount: new Money({
-    amount: 1000000,
-    currency: 'GBP' as ICurrency
-  }),
-  baseInterestRate: 0.25,
-  startDate: '2022-02-12',
-  endDate: '2022-03-12',
-  margin: 3,
-  totalInterest: {
-    amount: 3000000,
-    currency: 'GBP' as ICurrency
-  },
-  breakdown: [{
-    interest: {
-      amount: 300,
-      currency: 'GBP' as ICurrency
-    },
-    withoutMargin: {
-      amount: 300,
-      currency: 'GBP' as ICurrency
-    },
-    withMargin: {
-      amount: 300,
-      currency: 'GBP' as ICurrency
-    }
-  }]
-}
-
-const loan2 = {
-  id: 2,
-  lender: 'Barclays',
-  loanAmount: new Money({
-    amount: 1000000,
-    currency: 'GBP' as ICurrency
-  }),
-  baseInterestRate: 0.25,
-  startDate: '2022-02-12',
-  endDate: '2022-09-12',
-  margin: 3,
-  totalInterest: {
-    amount: 3000000,
-    currency: 'GBP' as ICurrency
-  },
-  breakdown: [{
-    interest: {
-      amount: 300,
-      currency: 'GBP' as ICurrency
-    },
-    withoutMargin: {
-      amount: 300,
-      currency: 'GBP' as ICurrency
-    },
-    withMargin: {
-      amount: 300,
-      currency: 'GBP' as ICurrency
-    }
-  }]
-}
-
 const state = {
   version: 1,
   isModalOpen: false,
   formData,
-  loans: [loan1, loan2]
+  loans: []
 }
 
 const actions = {
