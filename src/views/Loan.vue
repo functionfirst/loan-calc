@@ -47,24 +47,28 @@ export default defineComponent({
   setup () {
     const { params } = useRoute()
     const { getters, dispatch } = useStore()
-    const loan = computed(() => getters.loanById(params.id))
-    const editLoan = () => dispatch('editLoan', +params.id)
-    const totalInterest = formatCurrency(loan.value.totalInterest.amount, loan.value.totalInterest.currency)
-    const loanAmount = formatCurrency(loan.value.loanAmount.amount, loan.value.loanAmount.currency)
-    const endDate = formatDate(loan.value.endDate)
-    const startDate = formatDate(loan.value.startDate)
+    const id = +params.id
+    const editLoan = () => dispatch('editLoan', id)
+
+    const loan = computed(() => getters.loanById(id))
+    const totalInterest = computed(() => formatCurrency(loan.value.totalInterest.amount, loan.value.totalInterest.currency))
+    const loanAmount = computed(() => formatCurrency(loan.value.loanAmount.amount, loan.value.loanAmount.currency))
+    const endDate = computed(() => formatDate(loan.value.endDate))
+    const startDate = computed(() => formatDate(loan.value.startDate))
+    const baseInterestRate = computed(() => +loan.value.baseInterestRate)
+    const breakdown = computed(() => loan.value.breakdown)
+    const lender = computed(() => loan.value.lender)
+    const margin = computed(() => +loan.value.margin)
 
     return {
-      baseInterestRate: loan.value.baseInterestRate,
-      breakdown: loan.value.breakdown,
+      baseInterestRate,
+      breakdown,
       editLoan,
       endDate,
       startDate,
-      formatDate,
-      formatCurrency,
-      lender: loan.value.lender,
+      lender,
       loanAmount,
-      margin: loan.value.margin,
+      margin,
       totalInterest
     }
   }

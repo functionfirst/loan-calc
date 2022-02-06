@@ -173,7 +173,7 @@ const getters = {
     return loanSets
   },
 
-  loanById: (state: IState) => (id: number) => state.loans.find((loan) => loan.id === +id)
+  loanById: (state: IState) => (id: number) => state.loans.find((loan) => loan.id === id)
 }
 
 const mutations = {
