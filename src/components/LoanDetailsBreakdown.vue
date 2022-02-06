@@ -4,14 +4,14 @@
       <RHCPinned class="text-center w-32 whitespace-pre-line">
         Elapsed Days
       </RHCPinned>
-      <RHC class="whitespace-pre-line text-right">
-        Interest Accrual
-      </RHC>
       <RHC class="text-right">
         Daily Interest <span class="block text-xs">without margin</span>
       </RHC>
       <RHC class="text-right">
         Daily Interest <span class="block text-xs">with margin</span>
+      </RHC>
+      <RHC class="whitespace-pre-line text-right">
+        Interest Accrual
       </RHC>
     </template>
     <template #tbody>
@@ -28,13 +28,13 @@
           {{ index + 1 }}
         </RBCPinned>
         <RBC class="text-right">
-          {{ formatCurrency(day.interest.amount, day.interest.currency) }}
-        </RBC>
-        <RBC class="text-right">
           {{ formatCurrency(day.withoutMargin.amount, day.withoutMargin.currency) }}
         </RBC>
         <RBC class="text-right">
           {{ formatCurrency(day.withMargin.amount, day.withMargin.currency) }}
+        </RBC>
+        <RBC class="text-right">
+          {{ formatCurrency(day.interest.amount, day.interest.currency) }}
         </RBC>
       </tr>
     </template>
