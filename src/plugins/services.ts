@@ -1,13 +1,14 @@
 import { App } from 'vue'
 import { provider } from '@/services'
 import { store } from '@/store'
+import { ILoanData } from '@/entities'
 
-// store.$services = provider()
+const data: ILoanData[] = []
+
+store.$services = provider(data)
 
 export const services = {
   install (app: App): void {
-    // console.log(app)
-    // console.log('foo')
-    // app.config.globalProperties.$service = store.$services
+    app.config.globalProperties.$services = store.$services
   }
 }

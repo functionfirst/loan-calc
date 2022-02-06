@@ -1,10 +1,10 @@
+import { ILoanData } from '@/entities'
 import { LoansService, IProvider } from '@/services'
-import { LoanStore } from '@/store'
+// import { LoanStore } from '@/store'
 
-export const provider = (): IProvider => {
-  const store = new LoanStore()
-
+export const provider = (data: ILoanData[]): IProvider => {
+  // const store = new LoanStore()
   return {
-    loans: new LoansService(store)
+    loans: new LoansService(data)
   }
 }
