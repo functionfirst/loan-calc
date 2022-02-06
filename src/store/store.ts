@@ -1,7 +1,6 @@
 import { ICurrency, ILoanData, Loan } from '@/entities'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA } from './store.types'
-// import groupBy from '@/libs/groupBy'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -17,40 +16,73 @@ const formData = {
   margin: ''
 }
 
+const loan1 = {
+  id: 1,
+  lender: 'HSBC',
+  loanAmount: {
+    amount: 100000000,
+    currency: 'GBP' as ICurrency
+  },
+  baseInterestRate: 0.25,
+  startDate: '2022-02-12',
+  endDate: '2022-09-12',
+  margin: 3,
+  totalInterest: {
+    amount: 3000000,
+    currency: 'GBP' as ICurrency
+  },
+  breakdown: [{
+    interest: {
+      amount: 300,
+      currency: 'GBP' as ICurrency
+    },
+    withoutMargin: {
+      amount: 300,
+      currency: 'GBP' as ICurrency
+    },
+    withMargin: {
+      amount: 300,
+      currency: 'GBP' as ICurrency
+    }
+  }]
+}
+
+const loan2 = {
+  id: 2,
+  lender: 'Barclays',
+  loanAmount: {
+    amount: 100000000,
+    currency: 'GBP' as ICurrency
+  },
+  baseInterestRate: 0.25,
+  startDate: '2022-02-12',
+  endDate: '2022-09-12',
+  margin: 3,
+  totalInterest: {
+    amount: 3000000,
+    currency: 'GBP' as ICurrency
+  },
+  breakdown: [{
+    interest: {
+      amount: 300,
+      currency: 'GBP' as ICurrency
+    },
+    withoutMargin: {
+      amount: 300,
+      currency: 'GBP' as ICurrency
+    },
+    withMargin: {
+      amount: 300,
+      currency: 'GBP' as ICurrency
+    }
+  }]
+}
+
 const state = {
   version: 1,
   isModalOpen: false,
   formData,
-  loans: [{
-    id: 1,
-    lender: 'HSBC',
-    loanAmount: {
-      amount: 100000000,
-      currency: 'GBP' as ICurrency
-    },
-    baseInterestRate: 0.25,
-    startDate: '2022-02-12',
-    endDate: '2022-09-12',
-    margin: 3,
-    totalInterest: {
-      amount: 3000000,
-      currency: 'GBP' as ICurrency
-    },
-    breakdown: [{
-      interest: {
-        amount: 300,
-        currency: 'GBP' as ICurrency
-      },
-      withoutMargin: {
-        amount: 300,
-        currency: 'GBP' as ICurrency
-      },
-      withMargin: {
-        amount: 300,
-        currency: 'GBP' as ICurrency
-      }
-    }]
-  }]
+  loans: [loan1, loan2]
 }
 
 interface IDifferentLenderDto {
@@ -99,62 +131,43 @@ const actions = {
   }
 }
 
+/*
+ [
+   {
+     loanAmount: {
+       amount: 100000,
+       currency: 'GBP'
+     },
+     baseInterestRate: 0.25,
+     loans: [{
+       id: 1,
+       lender: 'HSBC',
+       margin: 0.25,
+       period: 60,
+       totalInterest: {
+         amount: 10000000,
+         currency: 'GBP'
+       }
+     }]
+   }
+ ]
+ */
+
 const getters = {
-  loanSets: () => {
-    // @todo construct a loan set dynamically
-    // const grouped = groupBy(loans, loan => loan.lender)
-    // const loans = state.loans.map(loan => new Loan(loan))
+  loanSets: (state: IState) => {
+    // @todo move this to the loan service or a new loanset service???
+    const loanSets = [...state.loans.reduce((previous, currentItem) => {
+      const key = `${currentItem.loanAmount.amount}-${currentItem.loanAmount.currency}-${currentItem.baseInterestRate}`
+      const item = previous.get(key) || Object.assign({}, currentItem, {
+        loans: []
+      })
 
-    const loanSet = [{
-      loanAmount: {
-        amount: 10000000,
-        currency: 'GBP'
-      },
-      baseInterestRate: 0.25,
-      loans: [{
-        id: 1,
-        loanAmount: {
-          amount: 10000000,
-          currency: 'GBP'
-        },
-        startDate: '2022-02-12',
-        endDate: '2022-09-12',
-        margin: '3',
-        baseInterestRate: '0.25',
-        lender: 'HSBC',
-        period: 60,
-        totalInterest: {
-          amount: 1375000000,
-          currency: 'GBP'
-        }
-      }]
-    },
-    {
-      loanAmount: {
-        amount: 10000000,
-        currency: 'GBP'
-      },
-      baseInterestRate: 0.25,
-      loans: [{
-        id: 2,
-        loanAmount: {
-          amount: 10000000,
-          currency: 'GBP'
-        },
-        startDate: '2022-02-12',
-        endDate: '2022-09-12',
-        margin: '3',
-        baseInterestRate: '0.25',
-        lender: 'HSBC',
-        period: 60,
-        totalInterest: {
-          amount: 1375000000,
-          currency: 'GBP'
-        }
-      }]
-    }]
+      item.loans.push(new Loan(currentItem))
 
-    return loanSet
+      return previous.set(key, item)
+    }, new Map()).values()]
+
+    return loanSets
   },
 
   loanById: (state: IState) => (id: number) => state.loans.find((loan) => loan.id === +id)
