@@ -3,15 +3,3 @@
 @tailwind components;
 
 @tailwind utilities;
-
-:root {
-  --tw-scroll-snap-strictness: mandatory; 
-}
-
-.snap-both {
-  scroll-snap-type: both var(--tw-scroll-snap-strictness);
-}
-
-.snap-start {
-  scroll-snap-align: start;
-}
