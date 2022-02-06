@@ -1,4 +1,8 @@
 module.exports = {
+  purge: [
+    './src/views/**/*.vue',
+    './src/components/**/*.vue'
+  ],
   content: [
     './index.html',
     './src/**/*.{vue,js,ts,jsx,tsx}'
@@ -15,8 +19,8 @@ module.exports = {
       'gray-400': '#D1D1D1',
       // 'gray-500': '#BFBFBF',
       // 'gray-600': '#B4B4B4',
-      'gray-700': '#8D8D8D',
-      'gray-800': '#777777',
+      // 'gray-700': '#8D8D8D',
+      // 'gray-800': '#777777',
       'gray-900': '#5B5B5B',
       black: '#252525',
       error: '#D0011B',
