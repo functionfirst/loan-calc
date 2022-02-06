@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import Heading from '@/components/Heading.vue'
 import LoanSet from '@/components/LoanSet.vue'
 import StartLoanButton from '@/components/StartLoanButton.vue'
@@ -29,7 +29,7 @@ export default defineComponent({
   },
   setup () {
     const { getters } = useStore()
-    const loanSets = getters.loanSets
+    const loanSets = computed(() => getters.loanSets)
 
     return {
       loanSets
