@@ -1,6 +1,6 @@
 import { ICurrency, ILoanData, Loan } from '@/entities'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
-import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA } from './store.types'
+import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, IDifferentLender } from './store.types'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -83,11 +83,6 @@ const state = {
   isModalOpen: false,
   formData,
   loans: [loan1, loan2]
-}
-
-interface IDifferentLenderDto {
-  loanAmount: number
-  baseInterestRate: number
 }
 
 const actions = {
