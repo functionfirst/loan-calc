@@ -44,6 +44,6 @@ export class Loan implements ILoan {
   get period (): number {
     const startDate = new Date(this.startDate)
     const endDate = new Date(this.endDate)
-    return differenceInMonths(startDate, endDate)
+    return differenceInMonths(endDate, startDate)
   }
 }
