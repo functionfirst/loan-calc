@@ -62,45 +62,7 @@
     </HeadingWithMargin>
 
     <Card class="flex-1 overflow-hidden">
-      <RT class="text-right">
-        <template #thead>
-          <RHCPinned class="text-center w-32 whitespace-pre-line">
-            Elapsed Days
-          </RHCPinned>
-          <RHC class="whitespace-pre-line text-right">
-            Interest Accrual
-          </RHC>
-          <RHC class="text-right">
-            Daily Interest <span class="block text-xs">without margin</span>
-          </RHC>
-          <RHC class="text-right">
-            Daily Interest <span class="block text-xs">with margin</span>
-          </RHC>
-        </template>
-        <template #tbody>
-          <tr
-            v-for="(day, index) in loan.breakdown"
-            :key="index"
-            :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'"
-          >
-            <RBCPinned
-              class="text-center"
-              :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'"
-            >
-              {{ index + 1 }}
-            </RBCPinned>
-            <RBC class="text-right">
-              {{ formatCurrency(day.interest.amount, day.interest.currency) }}
-            </RBC>
-            <RBC class="text-right">
-              {{ formatCurrency(day.withoutMargin.amount, day.withoutMargin.currency) }}
-            </RBC>
-            <RBC class="text-right">
-              {{ formatCurrency(day.withMargin.amount, day.withMargin.currency) }}
-            </RBC>
-          </tr>
-        </template>
-      </RT>
+      <LoanBreakdown :breakdown="loan.breakdown" />
     </Card>
 
     <div class="z-10 sticky bottom-0 flex items-center justify-between md:justify-end gap-6 mt-4 md:mt-6 px-4 md:px-6">
@@ -119,14 +81,10 @@ import BaseLink from '@/components/BaseLink.vue'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
 import Heading from '@/components/Heading.vue'
+import LoanBreakdown from '@/components/LoanBreakdown.vue'
 import HeadingWithMargin from '@/components/HeadingWithMargin.vue'
 import IconPencil from '@/components/IconPencil.vue'
 import SecondaryButton from '@/components/SecondaryButton.vue'
-import RT from '@/components/ResponsiveTable.vue'
-import RBC from '@/components/ResponsiveBodyCell.vue'
-import RBCPinned from '@/components/ResponsiveBodyCellPinned.vue'
-import RHC from '@/components/ResponsiveHeadCell.vue'
-import RHCPinned from '@/components/ResponsiveHeadCellPinned.vue'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { formatDate } from '@/libs/dates'
@@ -141,11 +99,7 @@ export default defineComponent({
     HeadingWithMargin,
     IconPencil,
     SecondaryButton,
-    RT,
-    RBC,
-    RBCPinned,
-    RHC,
-    RHCPinned
+    LoanBreakdown
   },
 
   setup () {
