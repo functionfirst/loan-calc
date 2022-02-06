@@ -1,8 +1,13 @@
-import { differenceInMonths, format } from 'date-fns'
+import { differenceInDays, differenceInMonths, format } from 'date-fns'
 
-const formatDate = (date: string): string => format(new Date(date), 'do MMM yyyy')
+const diffInDays = (endDate: string, startDate: string): number => differenceInDays(new Date(endDate), new Date(startDate))
+
+const diffInMonths = (endDate: string, startDate: string): number => differenceInMonths(new Date(endDate), new Date(startDate))
+
+const formatDate = (date: string, template = 'do MMM yyyy'): string => format(new Date(date), template)
 
 export {
-  formatDate,
-  differenceInMonths
+  diffInDays,
+  diffInMonths,
+  formatDate
 }
