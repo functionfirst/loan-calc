@@ -97,7 +97,7 @@ const actions = {
     dispatch('toggleModal', true)
   },
 
-  differentLender ({ commit, dispatch }: IContext, payload: IDifferentLenderDto) {
+  differentLender ({ commit, dispatch }: IContext, payload: IDifferentLender) {
     const loan = Object.assign({ ...formData }, {
       loanAmount: payload?.loanAmount,
       baseInterestRate: payload?.baseInterestRate
