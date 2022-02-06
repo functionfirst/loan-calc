@@ -1,5 +1,5 @@
 import { IBreakdown, ILoan, ILoanData, IMoney } from '@/entities'
-import { differenceInMonths } from 'date-fns'
+import { differenceInMonths } from '@/libs/dates'
 
 export class Loan implements ILoan {
   readonly id?: number

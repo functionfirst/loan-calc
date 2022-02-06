@@ -36,14 +36,14 @@
         label="Start Date"
         size="md"
       >
-        {{ format(loan.startDate, 'do MMM yyyy') }}
+        {{ formatDate(loan.startDate) }}
       </DescriptionList>
 
       <DescriptionList
         label="End Date"
         size="md"
       >
-        {{ format(loan.endDate, 'do MMM yyyy') }}
+        {{ formatDate(loan.endDate) }}
       </DescriptionList>
 
       <div class="col-span-2 md:col-span-1">
@@ -129,7 +129,7 @@ import RHC from '@/components/ResponsiveHeadCell.vue'
 import RHCPinned from '@/components/ResponsiveHeadCellPinned.vue'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
-import { format } from 'date-fns'
+import { formatDate } from '@/libs/dates'
 import { formatCurrency } from '@/libs/formatCurrency'
 
 export default defineComponent({
@@ -156,7 +156,7 @@ export default defineComponent({
 
     return {
       editLoan,
-      format,
+      formatDate,
       formatCurrency,
       loan
     }
