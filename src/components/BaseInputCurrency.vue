@@ -10,6 +10,7 @@
       class="flex-1 rounded-l-none"
       v-bind="{ id, placeholder, required }"
       type="number"
+      min="1"
       :value="amount"
       @input="(event) => $emit('update:amount', event.target.value)"
     />
