@@ -18,6 +18,7 @@
       <tr
         v-for="(day, index) in breakdown"
         :key="index"
+        class="hover:underline"
         :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'"
       >
         <RBCPinned
