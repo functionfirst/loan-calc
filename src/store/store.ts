@@ -1,4 +1,5 @@
 import { ICurrency, ILoanData, Loan } from '@/entities'
+import { Money } from '@/entities/money/money'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, IDifferentLender } from './store.types'
 
@@ -6,10 +7,10 @@ const debug = process.env.NODE_ENV !== 'production'
 
 const formData = {
   id: 0,
-  loanAmount: {
-    amount: '',
+  loanAmount: new Money({
+    amount: 1000000,
     currency: 'GBP' as ICurrency
-  },
+  }),
   baseInterestRate: '',
   startDate: '',
   endDate: '',
@@ -20,13 +21,13 @@ const formData = {
 const loan1 = {
   id: 1,
   lender: 'HSBC',
-  loanAmount: {
-    amount: 100000000,
+  loanAmount: new Money({
+    amount: 1000000,
     currency: 'GBP' as ICurrency
-  },
+  }),
   baseInterestRate: 0.25,
   startDate: '2022-02-12',
-  endDate: '2022-09-12',
+  endDate: '2022-03-12',
   margin: 3,
   totalInterest: {
     amount: 3000000,
@@ -51,10 +52,10 @@ const loan1 = {
 const loan2 = {
   id: 2,
   lender: 'Barclays',
-  loanAmount: {
-    amount: 100000000,
+  loanAmount: new Money({
+    amount: 1000000,
     currency: 'GBP' as ICurrency
-  },
+  }),
   baseInterestRate: 0.25,
   startDate: '2022-02-12',
   endDate: '2022-09-12',
