@@ -18,11 +18,11 @@
       <tr
         v-for="(day, index) in breakdown"
         :key="index"
-        class="hover:underline"
+        class="group hover:bg-primary-100 hover:text-white"
         :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'"
       >
         <RBCPinned
-          class="text-center"
+          class="text-center group-hover:bg-primary-100 group-hover:text-white"
           :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'"
         >
           {{ index + 1 }}
