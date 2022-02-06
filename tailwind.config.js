@@ -1,7 +1,8 @@
 module.exports = {
   purge: [
     './src/views/**/*.vue',
-    './src/components/**/*.vue'
+    './src/components/**/*.vue',
+    './src/**/*.vue'
   ],
   content: [
     './index.html',
