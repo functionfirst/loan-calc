@@ -6,9 +6,10 @@
       v-bind="{ required }"
       @input="(event) => $emit('update:currency', event.target.value)"
     />
-    <InputNumber
+    <BaseInput
       v-bind="{ id, placeholder, required }"
       class="flex-1 rounded-l-none"
+      type="number"
       :value="amount"
       @input="(event) => $emit('update:amount', event.target.value)"
     />
@@ -17,14 +18,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import BaseInput from '@/components/BaseInput.vue'
 import CurrencyDropdown from '@/components/CurrencyDropdown.vue'
-import InputNumber from '@/components/InputNumber.vue'
 
 export default defineComponent({
   components: {
-    CurrencyDropdown,
-    InputNumber
+    BaseInput,
+    CurrencyDropdown
   },
 
   props: {

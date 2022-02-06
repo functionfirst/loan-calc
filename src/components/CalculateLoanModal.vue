@@ -20,7 +20,7 @@
           Loan Amount
         </BaseLabel>
 
-        <InputCurrency
+        <BaseInputCurrency
           id="loanAmount"
           v-model:currency="loan.loanAmount.currency"
           v-model:amount="loan.loanAmount.amount"
@@ -34,9 +34,10 @@
         <BaseLabel for="startDate">
           Start Date
         </BaseLabel>
-        <InputDate
+        <BaseInput
           id="startDate"
           v-model="loan.startDate"
+          type="date"
           required
         />
       </FormRow>
@@ -45,9 +46,10 @@
         <BaseLabel for="endDate">
           End Date
         </BaseLabel>
-        <InputDate
+        <BaseInput
           id="endDate"
           v-model="loan.endDate"
+          type="date"
           required
         />
         {{ loan.endDate }}
@@ -57,7 +59,7 @@
         <BaseLabel for="margin">
           Margin
         </BaseLabel>
-        <InputPercentage
+        <BaseInputPercentage
           id="margin"
           v-model="loan.margin"
           placeholder="0.00"
@@ -69,7 +71,7 @@
         <BaseLabel for="baseInterestRate">
           Base Interest Rate
         </BaseLabel>
-        <InputPercentage
+        <BaseInputPercentage
           id="baseInterestRate"
           v-model="loan.baseInterestRate"
           placeholder="0.00"
@@ -81,7 +83,7 @@
         <BaseLabel for="lenderName">
           Lender Name <span class="text-sm text-gray-900">optional</span>
         </BaseLabel>
-        <InputText
+        <BaseInput
           id="lenderName"
           v-model="loan.lender"
           placeholder="(optional)"
@@ -106,28 +108,26 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import useCalculator from '@/composables/useCalculator'
-import useModal from '@/composables/useModal'
+import BaseInput from '@/components/BaseInput.vue'
+import BaseInputCurrency from '@/components/InputCurrency.vue'
+import BaseInputPercentage from '@/components/InputPercentage.vue'
 import BaseLabel from '@/components/BaseLabel.vue'
 import FormRow from '@/components/FormRow.vue'
 import Heading from '@/components/Heading.vue'
-import InputCurrency from '@/components/InputCurrency.vue'
-import InputDate from '@/components/InputDate.vue'
-import InputPercentage from '@/components/InputPercentage.vue'
-import InputText from '@/components/InputText.vue'
 import Loading from '@/components/Loading.vue'
 import Modal from '@/components/Modal.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
+import useCalculator from '@/composables/useCalculator'
+import useModal from '@/composables/useModal'
 
 export default defineComponent({
   components: {
+    BaseInputCurrency,
+    BaseInputPercentage,
     BaseLabel,
     FormRow,
     Heading,
-    InputCurrency,
-    InputDate,
-    InputPercentage,
-    InputText,
+    BaseInput,
     Loading,
     Modal,
     PrimaryButton
