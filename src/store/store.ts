@@ -5,6 +5,7 @@ import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, IDifferen
 const debug = process.env.NODE_ENV !== 'production'
 
 const formData = {
+  id: 0,
   loanAmount: {
     amount: '',
     currency: 'GBP' as ICurrency
