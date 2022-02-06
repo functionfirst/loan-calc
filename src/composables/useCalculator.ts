@@ -1,4 +1,4 @@
-import { computed, ComputedRef, readonly, ref, Ref } from 'vue'
+import { computed, ComputedRef, reactive, readonly, ref, Ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { ILoanData } from '@/entities'
 
@@ -12,12 +12,16 @@ export default function useCalculator (): IUseCalculator {
   const { state, dispatch } = useStore()
   const formData = computed(() => JSON.parse(JSON.stringify(state.formData)))
   const loading = ref(false)
-  const loan = ref(formData)
+  const loan = reactive(formData.value)
+
+  watch(formData, () => {
+    Object.assign(loan, formData.value)
+  })
 
   const saveLoan = async () => {
     try {
       loading.value = true
-      await dispatch('createLoan', loan)
+      await dispatch('updateLoan', loan)
     } catch (error) {
       console.log(error)
     } finally {
