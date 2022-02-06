@@ -19,15 +19,10 @@ export default function useCalculator (): IUseCalculator {
   })
 
   const saveLoan = async () => {
-    try {
-      loading.value = true
-      const action = loan.id ? 'updateLoan' : 'createLoan'
-      await dispatch(action, loan)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      loading.value = false
-    }
+    loading.value = true
+    const action = loan.id ? 'updateLoan' : 'createLoan'
+    await dispatch(action, loan)
+    loading.value = false
   }
 
   return {

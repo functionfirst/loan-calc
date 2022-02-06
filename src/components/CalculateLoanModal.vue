@@ -135,8 +135,13 @@ export default defineComponent({
     const { loading, loan, saveLoan } = useCalculator()
 
     const submit = async () => {
-      await saveLoan()
-      setIsModalOpen(false)
+      try {
+        await saveLoan()
+        setIsModalOpen(false)
+      } catch (error) {
+        // @todo handle this better
+        alert(error)
+      }
     }
 
     return {

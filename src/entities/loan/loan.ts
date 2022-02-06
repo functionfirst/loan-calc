@@ -17,6 +17,12 @@ export class Loan implements ILoan {
   readonly period: number
 
   constructor (data: ILoanData) {
+    const validStartAndEndDate = diffInDays(data.endDate.toString(), data.startDate.toString()) >= 1
+
+    if (!validStartAndEndDate) {
+      throw new Error('Your End Date must be at least one day after your Start Date')
+    }
+
     this.id = data.id ? data.id : guidGenerator()
     this.loanAmount = new Money(data.loanAmount)
     this.baseInterestRate = data.baseInterestRate
