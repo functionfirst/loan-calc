@@ -10,7 +10,7 @@ export class LoansService implements ILoansService {
     return this.data.map((loan: ILoanData) => new Loan(loan))
   }
 
-  findById (id: number): ILoan | undefined {
+  findById (id: string): ILoan | undefined {
     const data = this.data.find((loan: ILoanData) => loan.id === id)
     if (data) {
       return new Loan(data)

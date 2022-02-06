@@ -1,7 +1,7 @@
 import { IBreakdown, IMoney } from '@/entities'
 
 export interface ILoanData {
-  readonly id?: number
+  readonly id: string
   readonly loanAmount: IMoney
   readonly baseInterestRate: number | string
   readonly startDate: Date | string

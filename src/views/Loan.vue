@@ -47,7 +47,7 @@ export default defineComponent({
   setup () {
     const { params } = useRoute()
     const { getters, dispatch } = useStore()
-    const id = +params.id
+    const id = params.id
     const editLoan = () => dispatch('editLoan', id)
 
     const loan = computed(() => getters.loanById(id))

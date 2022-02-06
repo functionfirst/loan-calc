@@ -88,7 +88,7 @@ const state = {
 }
 
 const actions = {
-  editLoan ({ commit, dispatch, state }: IContext, id: number) {
+  editLoan ({ commit, dispatch, state }: IContext, id: string) {
     const loan = state.loans.find((loan) => loan.id === id)
 
     if (!loan) {
@@ -122,7 +122,7 @@ const actions = {
     // @todo replace this with a service call
     // const loan = store.$services.loans.create(payload)
     const loan = new Loan(payload)
-    const loans = state.loans.map(item => item.id === payload.id ? loan : item)
+    const loans = state.loans.map((item: ILoanData) => item.id === payload.id ? loan : item)
 
     commit(UPDATE_LOAN, loans)
   },
@@ -173,7 +173,7 @@ const getters = {
     return loanSets
   },
 
-  loanById: (state: IState) => (id: number) => state.loans.find((loan) => loan.id === id)
+  loanById: (state: IState) => (id: string) => state.loans.find((loan) => loan.id === id)
 }
 
 const mutations = {

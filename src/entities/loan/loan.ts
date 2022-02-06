@@ -3,9 +3,10 @@ import { diffInMonths, diffInDays } from '@/libs/dates'
 import { Breakdown } from '../breakdown'
 import { dailyInterestPercentage } from '@/libs/finance'
 import { Money } from '../money/money'
+import { guidGenerator } from '@/libs/guid'
 
 export class Loan implements ILoan {
-  readonly id?: number
+  readonly id: string
   readonly loanAmount: IMoney
   readonly baseInterestRate: number | string
   readonly startDate: Date | string
@@ -16,10 +17,7 @@ export class Loan implements ILoan {
   readonly period: number
 
   constructor (data: ILoanData) {
-    if (data.id) {
-      this.id = data.id
-    }
-
+    this.id = data.id ? data.id : guidGenerator()
     this.loanAmount = new Money(data.loanAmount)
     this.baseInterestRate = data.baseInterestRate
     this.startDate = data.startDate
