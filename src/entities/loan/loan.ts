@@ -34,32 +34,36 @@ export class Loan implements ILoan {
     return dailyInterestPercentage(+this.baseInterestRate)
   }
 
-  get dailyMarginPercentage (): number {
-    return dailyInterestPercentage(+this.margin)
-  }
-
   get dailyInterest (): number {
     return this.loanAmount.amount * this.dailyInterestPercentage
   }
 
   get dailyInterestWithMargin (): number {
-    return this.dailyInterest * this.dailyMarginPercentage
+    return this.dailyInterest + (this.dailyInterest * (+this.margin / 100))
+  }
+
+  get loanPeriodInDays (): number {
+    return diffInDays(this.endDate.toString(), this.startDate.toString())
+  }
+
+  get lastPayment (): IBreakdown {
+    return this.breakdown[this.breakdown.length - 1]
+  }
+
+  get totalInterest (): IMoney {
+    return this.lastPayment.interest
   }
 
   dayBreakdown (day: number): IBreakdown {
     const data = {
       interest: this.dailyInterest * day,
       withoutMargin: this.dailyInterest,
-      withMargin: this.dailyInterestWithMargin * day
+      withMargin: this.dailyInterestWithMargin
     }
 
     const dayBreakdown = new Breakdown(data, this.loanAmount.currency)
 
     return dayBreakdown
-  }
-
-  get loanPeriodInDays (): number {
-    return diffInDays(this.endDate.toString(), this.startDate.toString())
   }
 
   calculateBreakdown (): IBreakdown[] {
@@ -72,13 +76,5 @@ export class Loan implements ILoan {
     }
 
     return breakdown
-  }
-
-  get lastPayment (): IBreakdown {
-    return this.breakdown[this.breakdown.length - 1]
-  }
-
-  get totalInterest (): IMoney {
-    return this.lastPayment.withMargin
   }
 }
