@@ -4,11 +4,11 @@ import { differenceInMonths } from 'date-fns'
 export class Loan implements ILoan {
   readonly id?: number
   readonly loanAmount: IMoney
-  readonly baseInterestRate: number
+  readonly baseInterestRate: number | string
   readonly startDate: Date | string
   readonly endDate: Date | string
   readonly lender: string
-  readonly margin: number
+  readonly margin: number | string
 
   constructor (data: ILoanData) {
     if (data.id) {

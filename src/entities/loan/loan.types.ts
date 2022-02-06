@@ -1,7 +1,7 @@
 export type ICurrency = 'GBP' | 'USD'
 
 export interface IMoney {
-  readonly amount: number|string
+  readonly amount: number | string
   readonly currency: ICurrency
 }
 
@@ -14,11 +14,11 @@ export interface IBreakdown {
 export interface ILoanData {
   readonly id?: number
   readonly loanAmount: IMoney
-  readonly baseInterestRate: number
+  readonly baseInterestRate: number | string
   readonly startDate: Date | string
   readonly endDate: Date | string
   readonly lender: string
-  readonly margin: number
+  readonly margin: number | string
 }
 
 export interface ILoan extends ILoanData {

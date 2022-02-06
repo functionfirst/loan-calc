@@ -12,7 +12,7 @@
     </DescriptionList>
 
     <DifferentLenderButton
-      :loan="props"
+      v-bind="{ loanAmount, baseInterestRate}"
       class="col-span-2 md:col-span-1 mx-auto md:mr-0"
     />
   </Card>

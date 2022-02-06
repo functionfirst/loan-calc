@@ -1,49 +1,23 @@
-import { ICurrency, ILoanData, IMoney } from '@/entities'
-import { reactive, readonly, ref, Ref, toRefs } from 'vue'
+import { computed, ComputedRef, readonly, ref, Ref } from 'vue'
 import { useStore } from 'vuex'
-
-type SaveLoanFunction = () => void
-type SetLoanFunction = (state: ILoanData|undefined) => void
+import { ILoanData } from '@/entities'
 
 interface IUseCalculator {
-  loanAmount: Ref<IMoney>
-  startDate: Ref<Date|string>
-  endDate: Ref<Date|string>
-  margin: Ref<string|number>
-  baseInterestRate: Ref<string|number>
-  lender: Ref<string>
+  loan: ComputedRef<ILoanData>
   loading: Readonly<Ref<boolean>>
-  setLoan: SetLoanFunction
-  saveLoan: SaveLoanFunction
+  saveLoan: () => void
 }
 
-const initialState = reactive({
-  loanAmount: {
-    amount: '',
-    currency: 'GBP' as ICurrency
-  },
-  baseInterestRate: '',
-  startDate: '',
-  endDate: '',
-  lender: '',
-  margin: ''
-})
-
 export default function useCalculator (): IUseCalculator {
-  const store = useStore()
+  const { state, dispatch } = useStore()
+  const formData = computed(() => JSON.parse(JSON.stringify(state.formData)))
   const loading = ref(false)
-  const loan = reactive(initialState)
-
-  const setLoan = (state: ILoanData|undefined) => {
-    if (!open) { return }
-    const newState = state ?? initialState
-    Object.assign(loan, { ...newState })
-  }
+  const loan = ref(formData)
 
   const saveLoan = async () => {
     try {
       loading.value = true
-      await store.dispatch('createLoan', loan)
+      await dispatch('createLoan', loan)
     } catch (error) {
       console.log(error)
     } finally {
@@ -52,9 +26,8 @@ export default function useCalculator (): IUseCalculator {
   }
 
   return {
-    setLoan,
     saveLoan,
     loading: readonly(loading),
-    ...toRefs(loan)
+    loan
   }
 }

@@ -47,18 +47,13 @@
       </DescriptionList>
 
       <div class="col-span-2 md:col-span-1">
-        <CalculateLoanModal
-          v-slot="{ setIsOpen }"
-          :loan="loan"
+        <SecondaryButton
+          class="mx-auto md:mx-0 justify-center"
+          @click="editLoan"
         >
-          <SecondaryButton
-            class="mx-auto md:mx-0 justify-center"
-            @click="setIsOpen(true)"
-          >
-            <IconPencil class="h-6 w-6" />
-            Edit Loan Details
-          </SecondaryButton>
-        </CalculateLoanModal>
+          <IconPencil class="h-6 w-6" />
+          Edit Loan Details
+        </SecondaryButton>
       </div>
     </Card>
 
@@ -121,7 +116,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BaseLink from '@/components/BaseLink.vue'
-import CalculateLoanModal from '@/components/CalculateLoanModal.vue'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
 import Heading from '@/components/Heading.vue'
@@ -141,7 +135,6 @@ import { formatCurrency } from '@/libs/formatCurrency'
 export default defineComponent({
   components: {
     BaseLink,
-    CalculateLoanModal,
     Card,
     DescriptionList,
     Heading,
@@ -157,10 +150,12 @@ export default defineComponent({
 
   setup () {
     const { params } = useRoute()
-    const { getters } = useStore()
+    const { getters, dispatch } = useStore()
     const loan = getters.loanById(params.id)
+    const editLoan = () => dispatch('editLoan', params.id)
 
     return {
+      editLoan,
       format,
       formatCurrency,
       loan

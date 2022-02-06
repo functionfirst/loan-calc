@@ -1,13 +1,26 @@
 import { ICurrency, ILoanData, Loan } from '@/entities'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
-import { IContext, IState, CREATE_LOAN } from './store.types'
+import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA } from './store.types'
 // import groupBy from '@/libs/groupBy'
 
 const debug = process.env.NODE_ENV !== 'production'
 
-// @todo - move this into initial state loader maybe?
+const formData = {
+  loanAmount: {
+    amount: '',
+    currency: 'GBP' as ICurrency
+  },
+  baseInterestRate: '',
+  startDate: '',
+  endDate: '',
+  lender: '',
+  margin: ''
+}
+
 const state = {
   version: 1,
+  isModalOpen: false,
+  formData,
   loans: [{
     id: 1,
     lender: 'HSBC',
@@ -40,7 +53,42 @@ const state = {
   }]
 }
 
+interface IDifferentLenderDto {
+  loanAmount: number
+  baseInterestRate: number
+}
+
 const actions = {
+  newLoan ({ commit, dispatch }: IContext) {
+    commit(FORM_DATA, { ...formData })
+    dispatch('toggleModal', true)
+  },
+
+  editLoan ({ commit, dispatch, state }: IContext, id: number) {
+    const loan = state.loans.find((loan) => loan.id === id)
+
+    if (!loan) {
+      throw new Error('This loan could not be found')
+    }
+
+    commit(FORM_DATA, loan)
+    dispatch('toggleModal', true)
+  },
+
+  differentLender ({ commit, dispatch }: IContext, payload: IDifferentLenderDto) {
+    const loan = Object.assign({ ...formData }, {
+      loanAmount: payload?.loanAmount,
+      baseInterestRate: payload?.baseInterestRate
+    })
+
+    commit(FORM_DATA, loan)
+    dispatch('toggleModal', true)
+  },
+
+  toggleModal ({ commit }: IContext, toggle: boolean) {
+    commit(MODAL, toggle)
+  },
+
   createLoan ({ commit }: IContext, payload: ILoanData) {
     // @todo replace this with a serice call
     // const loan = this.$services.loans.create(payload)
@@ -114,6 +162,14 @@ const getters = {
 const mutations = {
   [CREATE_LOAN] (state: IState, loan: ILoanData) {
     state.loans.push(loan)
+  },
+
+  [MODAL] (state: IState, toggle: boolean) {
+    state.isModalOpen = toggle
+  },
+
+  [FORM_DATA] (state: IState, payload: ILoanData) {
+    state.formData = payload
   }
 }
 

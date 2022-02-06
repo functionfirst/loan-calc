@@ -4,10 +4,7 @@
       Loan Details
     </HeadingWithMargin>
 
-    <LoanSetHeading
-      :loan-amount="loanAmount"
-      :base-interest-rate="baseInterestRate"
-    />
+    <LoanSetHeading v-bind="{ loanAmount, baseInterestRate }" />
 
     <LoanList
       class="mt-6"
