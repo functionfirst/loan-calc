@@ -1,4 +1,4 @@
-import { ICurrency, ILoanData, Loan } from '@/entities'
+import { ICurrency, ILoan, ILoanData, Loan } from '@/entities'
 import { Money } from '@/entities/money/money'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, IDifferentLender } from './store.types'
@@ -56,32 +56,30 @@ const actions = {
     commit(MODAL, toggle)
   },
 
-  updateLoan ({ commit }: IContext, payload: ILoanData) {
-    // @todo replace this with a service call
+  async updateLoan ({ commit, dispatch }: IContext, payload: ILoanData) {
+    const loan = await dispatch('createLoan')
     // const loan = store.$services.loans.create(payload)
-    const loan = new Loan(payload)
     const loans = state.loans.map((item: ILoanData) => item.id === payload.id ? loan : item)
-
     commit(UPDATE_LOAN, loans)
   },
 
-  createLoan ({ commit }: IContext, payload: ILoanData) {
-    // @todo call a service here to create a new loan
-    const loan = new Loan(payload)
+  createLoan ({ commit }: IContext, payload: ILoanData): ILoan {
+    const loan = store.$services.loans.create(payload)
     commit(CREATE_LOAN, loan)
+    return loan
   }
 }
 
 const getters = {
   loanSets: (state: IState) => {
-    // @todo move this to the loan service or a new loanset service???
+    // @todo move this to the loan service or a new loanset service
     const loanSets = [...state.loans.reduce((previous, currentItem) => {
       const key = `${currentItem.loanAmount.amount}-${currentItem.loanAmount.currency}-${currentItem.baseInterestRate}`
       const item = previous.get(key) || Object.assign({}, currentItem, {
         loans: []
       })
 
-      item.loans.push(new Loan(currentItem))
+      item.loans.push(currentItem)
 
       return previous.set(key, item)
     }, new Map()).values()]
