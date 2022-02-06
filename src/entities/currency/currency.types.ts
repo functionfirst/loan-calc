@@ -1,1 +1,1 @@
-export type ICurrency = 'GBP' | 'USD'
+export type ICurrency = 'AUD' | 'EUR' | 'GBP' | 'USD'
