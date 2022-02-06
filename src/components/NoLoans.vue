@@ -4,7 +4,7 @@
       No Loan Calculations Created
     </Heading>
 
-    <div class="mx-auto rounded-full bg-gray-700 flex items-center justify-center text-white h-48 w-48">
+    <div class="mx-auto rounded-full bg-gray-400 flex items-center justify-center text-white h-48 w-48">
       <IconLicense class="w-24 h-24" />
     </div>
 

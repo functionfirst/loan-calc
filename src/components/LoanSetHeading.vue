@@ -1,14 +1,20 @@
 <template>
   <Card class="grid grid-cols-2 md:grid-cols-3 gap-6 items-center justify-between p-4 md:p-6">
     <DescriptionList label="Loan Amount">
-      £10,000,000.00
+      {{ formatCurrency(loanAmount.amount, loanAmount.currency) }}
     </DescriptionList>
 
-    <DescriptionList label="Base Interest Rate">
-      0.25%
+    <DescriptionList
+      label="Base Interest Rate"
+      class="md:mx-auto"
+    >
+      {{ baseInterestRate }}%
     </DescriptionList>
 
-    <DifferentLenderButton class="col-span-2 md:col-span-1 mx-auto" />
+    <DifferentLenderButton
+      :loan="props"
+      class="col-span-2 md:col-span-1 mx-auto md:mr-0"
+    />
   </Card>
 </template>
 
@@ -17,12 +23,32 @@ import { defineComponent } from 'vue'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
 import DifferentLenderButton from '@/components/DifferentLenderButton.vue'
+import { formatCurrency } from '@/libs/formatCurrency'
 
 export default defineComponent({
   components: {
     Card,
     DescriptionList,
     DifferentLenderButton
+  },
+
+  props: {
+    loanAmount: {
+      required: true,
+      type: Object
+    },
+
+    baseInterestRate: {
+      required: true,
+      type: Number
+    }
+  },
+
+  setup (props) {
+    return {
+      formatCurrency,
+      props
+    }
   }
 })
 </script>

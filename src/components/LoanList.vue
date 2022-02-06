@@ -33,7 +33,7 @@
             {{ loan.period }}
           </RBC>
           <RBC class="text-right">
-            {{ loan.totalInterest.currency }}{{ loan.totalInterest.amount }}
+            {{ formatCurrency(loan.totalInterest.amount, loan.totalInterest.currency) }}
           </RBC>
         </tr>
       </template>
@@ -43,7 +43,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
 import BaseLink from '@/components/BaseLink.vue'
 import Card from '@/components/Card.vue'
 import RT from '@/components/ResponsiveTable.vue'
@@ -51,6 +50,7 @@ import RBC from '@/components/ResponsiveBodyCell.vue'
 import RBCPinned from '@/components/ResponsiveBodyCellPinned.vue'
 import RHC from '@/components/ResponsiveHeadCell.vue'
 import RHCPinned from '@/components/ResponsiveHeadCellPinned.vue'
+import { formatCurrency } from '@/libs/formatCurrency'
 
 export default defineComponent({
   components: {
@@ -62,32 +62,17 @@ export default defineComponent({
     RHC,
     RHCPinned
   },
-  setup () {
-    const loans = [
-      {
-        id: 1,
-        lender: 'Unnamed',
-        margin: 2.5,
-        period: 60,
-        totalInterest: {
-          amount: 137500000,
-          currency: 'GBP'
-        }
-      },
-      {
-        id: 2,
-        lender: 'Unnamed',
-        margin: 3.2,
-        period: 48,
-        totalInterest: {
-          amount: 126800000,
-          currency: 'GBP'
-        }
-      }
-    ]
 
+  props: {
+    loans: {
+      required: true,
+      type: Array
+    }
+  },
+
+  setup () {
     return {
-      loans
+      formatCurrency
     }
   }
 })

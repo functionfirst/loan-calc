@@ -1,11 +1,19 @@
 <template>
-  <HeadingWithMargin tag="h2">
-    Loan Details
-  </HeadingWithMargin>
+  <div>
+    <HeadingWithMargin tag="h2">
+      Loan Details
+    </HeadingWithMargin>
 
-  <LoanSetHeading />
+    <LoanSetHeading
+      :loan-amount="loanAmount"
+      :base-interest-rate="baseInterestRate"
+    />
 
-  <LoanList class="mt-6" />
+    <LoanList
+      class="mt-6"
+      :loans="loans"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -19,6 +27,23 @@ export default defineComponent({
     HeadingWithMargin,
     LoanList,
     LoanSetHeading
+  },
+
+  props: {
+    loanAmount: {
+      required: true,
+      type: Object
+    },
+
+    baseInterestRate: {
+      required: true,
+      type: Number
+    },
+
+    loans: {
+      required: true,
+      type: Array
+    }
   }
 })
 </script>

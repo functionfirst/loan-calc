@@ -12,6 +12,11 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
+    disabled: {
+      default: false,
+      type: Boolean
+    },
+
     size: {
       default: '',
       type: String
@@ -20,6 +25,10 @@ export default defineComponent({
 
   setup (props) {
     const buttonCss: string[] = []
+
+    if (props.disabled) {
+      buttonCss.push('pointer-events-none opacity-75 cursor-')
+    }
 
     switch (props.size) {
       case 'xl':

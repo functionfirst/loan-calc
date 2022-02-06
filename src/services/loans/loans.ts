@@ -1,18 +1,19 @@
+import { ILoanRepository } from '@/repositories'
 import { ILoansService } from '@/services'
 import { ILoan, ILoanData, Loan } from '@/entities'
 
 export class LoansService implements ILoansService {
   constructor (private readonly loanRepo: ILoanRepository) {
-    this.store = store
+    this.loanRepo = loanRepo
   }
 
   findAll (): ILoan[] {
-    const data = this.store.findAll()
-    return data.map(loan => new Loan(loan))
+    const data = this.loanRepo.findAll()
+    return data.map((loan: ILoanData) => new Loan(loan))
   }
 
-  findOneById (id: number): ILoan | undefined {
-    const data = this.data.find(loan => loan.id === id)
+  findById (id: number): ILoan | undefined {
+    const data = this.loanRepo.findById(id)
     if (data) {
       return new Loan(data)
     }
@@ -22,7 +23,7 @@ export class LoansService implements ILoansService {
 
   create (data: ILoanData): ILoan {
     const loan = new Loan(data)
-    this.store.create(loan)
+    this.loanRepo.create(loan)
     return loan
     // this.data.push(loan)
     // return loan

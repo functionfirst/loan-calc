@@ -7,8 +7,11 @@
     <StartLoanButton />
   </header>
 
-  <!-- @todo loop over this for each loan set -->
-  <LoanSet />
+  <LoanSet
+    v-for="(set, index) in loanSets"
+    :key="index"
+    v-bind="set"
+  />
 </template>
 
 <script lang="ts">
@@ -16,12 +19,21 @@ import { defineComponent } from 'vue'
 import Heading from '@/components/Heading.vue'
 import LoanSet from '@/components/LoanSet.vue'
 import StartLoanButton from '@/components/StartLoanButton.vue'
+import { useStore } from '@/store'
 
 export default defineComponent({
   components: {
     Heading,
     LoanSet,
     StartLoanButton
+  },
+  setup () {
+    const { getters } = useStore()
+    const loanSets = getters.loanSets
+
+    return {
+      loanSets
+    }
   }
 })
 </script>

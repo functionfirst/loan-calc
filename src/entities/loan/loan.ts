@@ -1,22 +1,21 @@
-import { IBreakdown, ILoan, ILoanData, IMoney, Money } from '@/entities'
+import { IBreakdown, ILoan, ILoanData, IMoney } from '@/entities'
 import { differenceInMonths } from 'date-fns'
-// import { Breakdown } from '../breakdown'
 
 export class Loan implements ILoan {
   readonly id?: number
-  readonly amount: IMoney
+  readonly loanAmount: IMoney
   readonly baseInterestRate: number
-  readonly startDate: Date | number
-  readonly endDate: Date | number
+  readonly startDate: Date | string
+  readonly endDate: Date | string
   readonly lender: string
-  readonly margin: IMoney
+  readonly margin: number
 
   constructor (data: ILoanData) {
     if (data.id) {
       this.id = data.id
     }
 
-    this.amount = data.amount
+    this.loanAmount = data.loanAmount
     this.baseInterestRate = data.baseInterestRate
     this.startDate = data.startDate
     this.endDate = data.endDate
@@ -24,10 +23,15 @@ export class Loan implements ILoan {
     this.margin = data.margin
   }
 
-  // get breakdown (): IBreakdown[] {
-  //   // @todo calculate this
-  //   return breakdown
-  // }
+  get breakdown (): IBreakdown[] {
+    // @todo calculate this correctly
+    const interest = { amount: 0, currency: 'GBP' }
+    const withMargin = { amount: 0, currency: 'GBP' }
+    const withoutMargin = { amount: 0, currency: 'GBP' }
+    const breakd = { interest, withMargin, withoutMargin } as IBreakdown
+    const breakdown = [breakd]
+    return breakdown
+  }
 
   get lastPayment (): IBreakdown {
     return this.breakdown[this.breakdown.length - 1]
@@ -38,6 +42,8 @@ export class Loan implements ILoan {
   }
 
   get period (): number {
-    return differenceInMonths(this.startDate, this.endDate)
+    const startDate = new Date(this.startDate)
+    const endDate = new Date(this.endDate)
+    return differenceInMonths(startDate, endDate)
   }
 }

@@ -1,1 +1,2 @@
-export * from './loan'
+export * from './store'
+export * from './store.types'

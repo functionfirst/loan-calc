@@ -2,7 +2,10 @@
   <div class="flex flex-col relative max-h-screen p-4 md:p-6">
     <header class="mb-6">
       <Heading>
-        {{ lender }} - Loan Details
+        <template v-if="loan.lender">
+          {{ loan.lender }} -
+        </template>
+        Loan Details
       </Heading>
 
       <BaseLink
@@ -18,39 +21,44 @@
         label="Loan Amount"
         class="col-span-2 md:col-span-1"
       >
-        {{ loan.currency }}{{ loan.amount }}
+        {{ formatCurrency(loan.loanAmount.amount, loan.loanAmount.currency) }}
       </DescriptionList>
 
       <DescriptionList label="Margin">
-        {{ margin }}%
+        {{ loan.margin }}%
       </DescriptionList>
 
       <DescriptionList label="Base Interest Rate">
-        {{ baseInterestRate }}%
+        {{ loan.baseInterestRate }}%
       </DescriptionList>
 
       <DescriptionList
         label="Start Date"
         size="md"
       >
-        {{ startDate }}
+        {{ format(loan.startDate, 'do MMM yyyy') }}
       </DescriptionList>
 
       <DescriptionList
         label="End Date"
         size="md"
       >
-        {{ endDate }}
+        {{ format(loan.endDate, 'do MMM yyyy') }}
       </DescriptionList>
 
       <div class="col-span-2 md:col-span-1">
-        <SecondaryButton
-          class="mx-auto md:mx-0 justify-center"
-          @click="setIsOpen(true)"
+        <CalculateLoanModal
+          v-slot="{ setIsOpen }"
+          :loan="loan"
         >
-          <IconPencil class="h-6 w-6" />
-          Edit Loan Details
-        </SecondaryButton>
+          <SecondaryButton
+            class="mx-auto md:mx-0 justify-center"
+            @click="setIsOpen(true)"
+          >
+            <IconPencil class="h-6 w-6" />
+            Edit Loan Details
+          </SecondaryButton>
+        </CalculateLoanModal>
       </div>
     </Card>
 
@@ -76,7 +84,7 @@
         </template>
         <template #tbody>
           <tr
-            v-for="(day, index) in breakdown"
+            v-for="(day, index) in loan.breakdown"
             :key="index"
             :class="index % 2 === 0 ? 'bg-white' : 'bg-gray-100'"
           >
@@ -87,13 +95,13 @@
               {{ index + 1 }}
             </RBCPinned>
             <RBC class="text-right">
-              {{ day.interest.currency }}{{ day.interest.amount }}
+              {{ formatCurrency(day.interest.amount, day.interest.currency) }}
             </RBC>
             <RBC class="text-right">
-              {{ day.withoutMargin.currency }}{{ day.withoutMargin.amount }}
+              {{ formatCurrency(day.withoutMargin.amount, day.withoutMargin.currency) }}
             </RBC>
             <RBC class="text-right">
-              {{ day.withMargin.currency }}{{ day.withMargin.amount }}
+              {{ formatCurrency(day.withMargin.amount, day.withMargin.currency) }}
             </RBC>
           </tr>
         </template>
@@ -104,16 +112,16 @@
       <h3>Total Interest:</h3>
 
       <p class="font-bold">
-        {{ totalInterest.currency }}{{ totalInterest.amount }}
+        {{ formatCurrency(loan.totalInterest.amount, loan.totalInterest.currency) }}
       </p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
-import useModal from '@/composables/useModal'
+import { defineComponent } from 'vue'
 import BaseLink from '@/components/BaseLink.vue'
+import CalculateLoanModal from '@/components/CalculateLoanModal.vue'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
 import Heading from '@/components/Heading.vue'
@@ -125,10 +133,15 @@ import RBC from '@/components/ResponsiveBodyCell.vue'
 import RBCPinned from '@/components/ResponsiveBodyCellPinned.vue'
 import RHC from '@/components/ResponsiveHeadCell.vue'
 import RHCPinned from '@/components/ResponsiveHeadCellPinned.vue'
+import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
+import { format } from 'date-fns'
+import { formatCurrency } from '@/libs/formatCurrency'
 
 export default defineComponent({
   components: {
     BaseLink,
+    CalculateLoanModal,
     Card,
     DescriptionList,
     Heading,
@@ -143,58 +156,14 @@ export default defineComponent({
   },
 
   setup () {
-    const { setIsOpen } = useModal()
-    // @todo replace with dynamic fetch
-    const loan = reactive({
-      lender: 'Unnamed',
-      loan: {
-        amount: 1000000000,
-        currency: 'GBP'
-      },
-      startDate: new Date().toDateString(),
-      endDate: new Date().toDateString(),
-      baseInterestRate: 0.25,
-      margin: 3,
-      periodInMonths: 60,
-      totalInterest: {
-        amount: 137500000,
-        currency: 'GBP'
-      },
-      breakdown: [
-        {
-          interest: {
-            amount: 30000,
-            currency: 'GBP'
-          },
-          withoutMargin: {
-            amount: 15000,
-            currency: 'GBP'
-          },
-          withMargin: {
-            amount: 30000,
-            currency: 'GBP'
-          }
-        },
-        {
-          interest: {
-            amount: 60000,
-            currency: 'GBP'
-          },
-          withoutMargin: {
-            amount: 15000,
-            currency: 'GBP'
-          },
-          withMargin: {
-            amount: 15000,
-            currency: 'GBP'
-          }
-        }
-      ]
-    })
+    const { params } = useRoute()
+    const { getters } = useStore()
+    const loan = getters.loanById(params.id)
 
     return {
-      setIsOpen,
-      ...toRefs(loan)
+      format,
+      formatCurrency,
+      loan
     }
   }
 })

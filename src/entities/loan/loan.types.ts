@@ -1,13 +1,24 @@
-import { IBreakdown, IMoney } from '@/entities'
+export type ICurrency = 'GBP' | 'USD'
+
+export interface IMoney {
+  readonly amount: number|string
+  readonly currency: ICurrency
+}
+
+export interface IBreakdown {
+  readonly interest: IMoney
+  readonly withoutMargin: IMoney
+  readonly withMargin: IMoney
+}
 
 export interface ILoanData {
   readonly id?: number
-  readonly amount: IMoney
+  readonly loanAmount: IMoney
   readonly baseInterestRate: number
-  readonly startDate: Date | number
-  readonly endDate: Date | number
+  readonly startDate: Date | string
+  readonly endDate: Date | string
   readonly lender: string
-  readonly margin: IMoney
+  readonly margin: number
 }
 
 export interface ILoan extends ILoanData {

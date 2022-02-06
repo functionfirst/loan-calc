@@ -1,10 +1,12 @@
 <template>
   <div class="flex">
     <BaseInput
-      v-bind="{ id, placeholder, required }"
+      v-bind="{ id, placeholder, required, step }"
       type="number"
       min="0"
       class="rounded-r-none"
+      :value="modelValue"
+      @input="(event) => $emit('update:modelValue', event.target.value)"
     />
     <label
       :for="id"
@@ -32,15 +34,27 @@ export default defineComponent({
       type: String
     },
 
+    modelValue: {
+      default: '',
+      type: [String, Number]
+    },
+
     placeholder: {
       default: '',
       type: String
+    },
+
+    step: {
+      default: 0.01,
+      type: Number
     },
 
     required: {
       default: false,
       type: Boolean
     }
-  }
+  },
+
+  emits: ['update:modelValue']
 })
 </script>
