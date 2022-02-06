@@ -72,28 +72,6 @@ const actions = {
   }
 }
 
-/*
- [
-   {
-     loanAmount: {
-       amount: 100000,
-       currency: 'GBP'
-     },
-     baseInterestRate: 0.25,
-     loans: [{
-       id: 1,
-       lender: 'HSBC',
-       margin: 0.25,
-       period: 60,
-       totalInterest: {
-         amount: 10000000,
-         currency: 'GBP'
-       }
-     }]
-   }
- ]
- */
-
 const getters = {
   loanSets: (state: IState) => {
     // @todo move this to the loan service or a new loanset service???
