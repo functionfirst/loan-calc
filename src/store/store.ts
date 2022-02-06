@@ -1,7 +1,7 @@
 import { ICurrency, ILoan, ILoanData } from '@/entities'
 import { Money } from '@/entities/money/money'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
-import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, IDifferentLender } from './store.types'
+import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, RESET_LOANS, IDifferentLender } from './store.types'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -67,6 +67,10 @@ const actions = {
     const loan = store.$services.loans.create(payload)
     commit(CREATE_LOAN, loan)
     return loan
+  },
+
+  resetLoans ({ commit }: IContext): void {
+    commit(RESET_LOANS)
   }
 }
 
@@ -113,6 +117,10 @@ const mutations = {
 
   [FORM_DATA] (state: IState, payload: ILoanData) {
     state.formData = payload
+  },
+
+  [RESET_LOANS] (state: IState) {
+    state.loans = []
   }
 }
 
