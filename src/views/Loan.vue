@@ -114,7 +114,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import BaseLink from '@/components/BaseLink.vue'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
@@ -151,8 +151,8 @@ export default defineComponent({
   setup () {
     const { params } = useRoute()
     const { getters, dispatch } = useStore()
-    const loan = getters.loanById(params.id)
-    const editLoan = () => dispatch('editLoan', params.id)
+    const loan = computed(() => getters.loanById(params.id))
+    const editLoan = () => dispatch('editLoan', +params.id)
 
     return {
       editLoan,
