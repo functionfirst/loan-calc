@@ -7,14 +7,13 @@
       tag="h2"
       class="text-center md:text-left mb-4"
     >
-      Calculate a commercial or personal loan.
+      {{ loan.id ? 'Update' : 'Calculate' }} a commercial or personal loan.
     </Heading>
 
     <form
       class="grid md:grid-cols-2 gap-6"
       @submit.prevent="submit"
     >
-      {{ loan }}
       <FormRow class="md:col-span-2">
         <BaseLabel for="loanAmount">
           Loan Amount
@@ -27,7 +26,6 @@
           placeholder="Enter loan amount"
           required
         />
-        {{ loan.loanAmount }}
       </FormRow>
 
       <FormRow>
@@ -52,7 +50,6 @@
           type="date"
           required
         />
-        {{ loan.endDate }}
       </FormRow>
 
       <FormRow>
@@ -99,7 +96,7 @@
           <template #loader>
             Calculating...
           </template>
-          Calculate Loan
+          {{ loan.id ? 'Save Changes' : 'Calculate Loan' }}
         </Loading>
       </PrimaryButton>
     </form>
@@ -109,8 +106,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BaseInput from '@/components/BaseInput.vue'
-import BaseInputCurrency from '@/components/InputCurrency.vue'
-import BaseInputPercentage from '@/components/InputPercentage.vue'
+import BaseInputCurrency from '@/components/BaseInputCurrency.vue'
+import BaseInputPercentage from '@/components/BaseInputPercentage.vue'
 import BaseLabel from '@/components/BaseLabel.vue'
 import FormRow from '@/components/FormRow.vue'
 import Heading from '@/components/Heading.vue'
@@ -135,7 +132,7 @@ export default defineComponent({
 
   setup () {
     const { isModalOpen, setIsModalOpen } = useModal()
-    const { saveLoan, loading, loan } = useCalculator()
+    const { loading, loan, saveLoan } = useCalculator()
 
     const submit = async () => {
       await saveLoan()
