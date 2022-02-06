@@ -87,7 +87,15 @@ const getters = {
     return loanSets
   },
 
-  loanById: (state: IState) => (id: string) => state.loans.find((loan) => loan.id === id)
+  loanById: (state: IState) => (id: string) => {
+    const loan = state.loans.find((loan) => loan.id === id)
+
+    if (!loan) {
+      throw new Error('Loan data not found')
+    }
+
+    return loan
+  }
 }
 
 const mutations = {
