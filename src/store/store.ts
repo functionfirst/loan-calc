@@ -59,11 +59,6 @@ interface IDifferentLenderDto {
 }
 
 const actions = {
-  newLoan ({ commit, dispatch }: IContext) {
-    commit(FORM_DATA, { ...formData })
-    dispatch('toggleModal', true)
-  },
-
   editLoan ({ commit, dispatch, state }: IContext, id: number) {
     const loan = state.loans.find((loan) => loan.id === id)
 
@@ -85,14 +80,20 @@ const actions = {
     dispatch('toggleModal', true)
   },
 
+  newLoan ({ commit, dispatch }: IContext) {
+    commit(FORM_DATA, { ...formData })
+    dispatch('toggleModal', true)
+  },
+
   toggleModal ({ commit }: IContext, toggle: boolean) {
     commit(MODAL, toggle)
   },
 
-  createLoan ({ commit }: IContext, payload: ILoanData) {
-    // @todo replace this with a serice call
-    // const loan = this.$services.loans.create(payload)
-    console.log({ payload })
+  updateLoan ({ commit }: IContext, payload: ILoanData) {
+    // @todo replace this with a service call
+    // const loan = store.$services.loans.create(payload)
+    // console.log({ loan })
+    // @todo add or update loan depending on whether payload.id exists
     const loan = new Loan(payload)
     commit(CREATE_LOAN, loan)
   }
