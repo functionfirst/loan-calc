@@ -20,7 +20,7 @@ export default defineComponent({
   props: {
     baseInterestRate: {
       required: true,
-      type: Number
+      type: [String, Number]
     },
 
     loanAmount: {

@@ -40,7 +40,7 @@ export default defineComponent({
 
     baseInterestRate: {
       required: true,
-      type: Number
+      type: [String, Number]
     }
   },
 
