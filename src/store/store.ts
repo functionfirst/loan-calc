@@ -1,4 +1,4 @@
-import { ICurrency, ILoan, ILoanData, Loan } from '@/entities'
+import { ICurrency, ILoan, ILoanData } from '@/entities'
 import { Money } from '@/entities/money/money'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, IDifferentLender } from './store.types'
