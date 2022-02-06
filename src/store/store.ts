@@ -119,8 +119,14 @@ const actions = {
   updateLoan ({ commit }: IContext, payload: ILoanData) {
     // @todo replace this with a service call
     // const loan = store.$services.loans.create(payload)
-    // console.log({ loan })
-    // @todo add or update loan depending on whether payload.id exists
+    const loan = new Loan(payload)
+    const loans = state.loans.map(item => item.id === payload.id ? loan : item)
+
+    commit(UPDATE_LOAN, loans)
+  },
+
+  createLoan ({ commit }: IContext, payload: ILoanData) {
+    // @todo call a service here to create a new loan
     const loan = new Loan(payload)
     commit(CREATE_LOAN, loan)
   }
@@ -171,6 +177,10 @@ const getters = {
 const mutations = {
   [CREATE_LOAN] (state: IState, loan: ILoanData) {
     state.loans.push(loan)
+  },
+
+  [UPDATE_LOAN] (state: IState, loans: ILoanData[]) {
+    state.loans = loans
   },
 
   [MODAL] (state: IState, toggle: boolean) {
