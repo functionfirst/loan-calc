@@ -21,7 +21,8 @@ export default function useCalculator (): IUseCalculator {
   const saveLoan = async () => {
     try {
       loading.value = true
-      await dispatch('updateLoan', loan)
+      const action = loan.id ? 'updateLoan' : 'createLoan'
+      await dispatch(action, loan)
     } catch (error) {
       console.log(error)
     } finally {
