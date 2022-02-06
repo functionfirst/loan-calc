@@ -1,6 +1,8 @@
 # Loan Calculator
 Assignment task to build a bank loan calculator. Get in touch at [alan@functionfirst.co.uk](mailto:alan@functionfirst.co.uk)
 
+Site Preview: https://functionfirst-calc.netlify.app/
+
 ## Design
 Click below to view the full design. Created using Sketch App for Mac.
 
