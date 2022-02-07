@@ -35,6 +35,7 @@ import { defineComponent, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useStore } from '@/store'
 import { loans } from '@/data/seed'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -42,10 +43,12 @@ export default defineComponent({
   },
 
   setup () {
+    const router = useRouter()
     const { dispatch } = useStore()
     const show = ref(true)
     const resetData = () => {
       dispatch('resetLoans')
+      router.push('/')
     }
 
     const seedData = async () => {
@@ -63,3 +66,7 @@ export default defineComponent({
   }
 })
 </script>
+
+function userRouter() {
+  throw new Error('Function not implemented.')
+}
