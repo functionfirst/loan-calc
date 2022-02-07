@@ -14,8 +14,8 @@ const loan1 = {
     currency: 'GBP' as ICurrency
   },
   baseInterestRate: getRandomInt(1, 3),
-  startDate: '02-12-2022',
-  endDate: '03-12-2022',
+  startDate: '2022-12-02',
+  endDate: '2022-12-03',
   lender: 'HSBC',
   margin: getRandomInt(1, 10)
 }
@@ -26,8 +26,8 @@ const loan2 = {
     currency: 'GBP' as ICurrency
   },
   baseInterestRate: getRandomInt(1, 3),
-  startDate: '02-12-2022',
-  endDate: '03-12-2022',
+  startDate: '2022-12-02',
+  endDate: '2022-12-03',
   lender: 'Barclays',
   margin: getRandomInt(1, 10)
 }
@@ -38,8 +38,8 @@ const loan3 = {
     currency: 'GBP' as ICurrency
   },
   baseInterestRate: getRandomInt(1, 3),
-  startDate: '02-12-2022',
-  endDate: '03-12-2022',
+  startDate: '2022-12-02',
+  endDate: '2022-12-03',
   lender: 'Royal Bank of Scotland',
   margin: getRandomInt(1, 10)
 }
