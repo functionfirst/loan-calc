@@ -57,8 +57,7 @@ const actions = {
   },
 
   async updateLoan ({ commit, dispatch }: IContext, payload: ILoanData) {
-    const loan = await dispatch('createLoan')
-    // const loan = store.$services.loans.create(payload)
+    const loan = await dispatch('createLoan', payload)
     const loans = state.loans.map((item: ILoanData) => item.id === payload.id ? loan : item)
     commit(UPDATE_LOAN, loans)
   },
