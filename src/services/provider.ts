@@ -1,8 +1,7 @@
-import { ILoanData } from '@/entities'
 import { LoansService, IProvider } from '@/services'
 
-export const provider = (data: ILoanData[]): IProvider => {
+export const provider = (): IProvider => {
   return {
-    loans: new LoansService(data)
+    loans: new LoansService()
   }
 }
