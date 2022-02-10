@@ -1,5 +1,5 @@
 <template>
-  <SecondaryButton @click="differentLender">
+  <SecondaryButton @click="createNewLoan(props)">
     <IconBank class="h-6 w-6" />
     Try a different Lender
   </SecondaryButton>
@@ -9,7 +9,7 @@
 import { defineComponent } from 'vue'
 import IconBank from '@/components/IconBank.vue'
 import SecondaryButton from '@/components/SecondaryButton.vue'
-import { useStore } from '@/store'
+import useCalculator from '@/composables/useCalculator'
 
 export default defineComponent({
   components: {
@@ -30,11 +30,11 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { dispatch } = useStore()
-    const differentLender = () => dispatch('differentLender', props)
+    const { createNewLoan } = useCalculator()
 
     return {
-      differentLender
+      props,
+      createNewLoan
     }
   }
 })

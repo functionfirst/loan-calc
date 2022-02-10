@@ -5,7 +5,7 @@
     <Card class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-center p-4 md:p-6">
       <LoanDetailsOptions
         v-bind="{ loanAmount, margin, baseInterestRate, startDate, endDate }"
-        @editLoan="editLoan"
+        @editLoan="edit"
       />
     </Card>
 
@@ -31,6 +31,7 @@ import LoanDetailsHeading from '@/components/LoanDetailsHeading.vue'
 import LoanDetailsOptions from '@/components/LoanDetailsOptions.vue'
 import { useRoute } from 'vue-router'
 import useLoan from '@/composables/useLoan'
+import useCalculator from '@/composables/useCalculator'
 
 export default defineComponent({
   components: {
@@ -43,9 +44,16 @@ export default defineComponent({
   },
 
   setup () {
+    const { editLoan } = useCalculator()
     const { params } = useRoute()
-    const loan = useLoan(params.id.toString())
-    return loan
+    const id = params.id.toString()
+    const loan = useLoan(id)
+    const edit = () => editLoan(id)
+
+    return {
+      edit,
+      ...loan
+    }
   }
 })
 </script>

@@ -16,6 +16,7 @@
         @click="$emit('close')"
       >
         <IconX class="h-6  w-6" />
+        <span class="sr-only">Close Modal</span>
       </button>
 
       <slot />

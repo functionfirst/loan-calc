@@ -1,21 +1,13 @@
-import { computed, ComputedRef, watch } from 'vue'
-import { useStore } from 'vuex'
+import { readonly, ref, watch } from 'vue'
+import { IUseModal } from './useModal.types'
 
-type ModalFunction = (toggle: boolean) => void
+const ESCAPE = 'Escape'
 
-interface IModal {
-  isModalOpen: ComputedRef<boolean>,
-  setIsModalOpen: ModalFunction
-}
-
-export default function useModal (): IModal {
-  const ESCAPE = 'Escape'
-  const { state, dispatch } = useStore()
-
-  const isModalOpen = computed(() => state.isModalOpen)
+export default function useModal (): IUseModal {
+  const isModalOpen = ref(false)
 
   const setIsModalOpen = (toggle: boolean) => {
-    dispatch('toggleModal', toggle)
+    isModalOpen.value = toggle
   }
 
   const escapeKey = (event: Event): void => {
@@ -32,7 +24,7 @@ export default function useModal (): IModal {
   watch(isModalOpen, closeModalOnEscape)
 
   return {
-    isModalOpen,
+    isModalOpen: readonly(isModalOpen),
     setIsModalOpen
   }
 }

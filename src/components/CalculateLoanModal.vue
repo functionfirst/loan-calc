@@ -12,7 +12,7 @@
 
     <form
       class="grid md:grid-cols-2 gap-6"
-      @submit.prevent="submit"
+      @submit.prevent="saveLoan"
     >
       <FormRow class="md:col-span-2">
         <BaseLabel for="loanAmount">
@@ -115,7 +115,6 @@ import Loading from '@/components/Loading.vue'
 import Modal from '@/components/Modal.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
 import useCalculator from '@/composables/useCalculator'
-import useModal from '@/composables/useModal'
 
 export default defineComponent({
   components: {
@@ -131,23 +130,12 @@ export default defineComponent({
   },
 
   setup () {
-    const { isModalOpen, setIsModalOpen } = useModal()
-    const { loading, loan, saveLoan } = useCalculator()
-
-    const submit = async () => {
-      try {
-        await saveLoan()
-        setIsModalOpen(false)
-      } catch (error) {
-        // @todo handle this better
-        alert(error)
-      }
-    }
+    const { isModalOpen, setIsModalOpen, loading, loan, saveLoan } = useCalculator()
 
     return {
       isModalOpen,
       setIsModalOpen,
-      submit,
+      saveLoan,
       loading,
       loan
     }

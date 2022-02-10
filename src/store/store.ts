@@ -1,61 +1,15 @@
-import { ICurrency, ILoan, ILoanData } from '@/entities'
-import { Money } from '@/entities/money/money'
+import { ILoan, ILoanData } from '@/entities'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
-import { IContext, IState, CREATE_LOAN, MODAL, FORM_DATA, UPDATE_LOAN, RESET_LOANS, IDifferentLender } from './store.types'
+import { IContext, IState, CREATE_LOAN, UPDATE_LOAN, RESET_LOANS } from './store.types'
 
 const debug = process.env.NODE_ENV !== 'production'
 
-const formData = {
-  id: '',
-  loanAmount: new Money({
-    amount: 0,
-    currency: 'GBP' as ICurrency
-  }),
-  baseInterestRate: '',
-  startDate: '',
-  endDate: '',
-  lender: '',
-  margin: ''
-}
-
 const state = {
   version: 1,
-  isModalOpen: false,
-  formData,
   loans: []
 }
 
 const actions = {
-  editLoan ({ commit, dispatch, state }: IContext, id: string) {
-    const loan = state.loans.find((loan) => loan.id === id)
-
-    if (!loan) {
-      throw new Error('This loan could not be found')
-    }
-
-    commit(FORM_DATA, loan)
-    dispatch('toggleModal', true)
-  },
-
-  differentLender ({ commit, dispatch }: IContext, payload: IDifferentLender) {
-    const loan = Object.assign({ ...formData }, {
-      loanAmount: payload?.loanAmount,
-      baseInterestRate: payload?.baseInterestRate
-    })
-
-    commit(FORM_DATA, loan)
-    dispatch('toggleModal', true)
-  },
-
-  newLoan ({ commit, dispatch }: IContext) {
-    commit(FORM_DATA, { ...formData })
-    dispatch('toggleModal', true)
-  },
-
-  toggleModal ({ commit }: IContext, toggle: boolean) {
-    commit(MODAL, toggle)
-  },
-
   async updateLoan ({ commit }: IContext, payload: ILoanData) {
     const loan = store.$services.loans.create(payload)
     const loans = state.loans.map((item: ILoanData) => item.id === payload.id ? loan : item)
@@ -110,14 +64,6 @@ const mutations = {
     state.loans = loans
   },
 
-  [MODAL] (state: IState, toggle: boolean) {
-    state.isModalOpen = toggle
-  },
-
-  [FORM_DATA] (state: IState, payload: ILoanData) {
-    state.formData = payload
-  },
-
   [RESET_LOANS] (state: IState) {
     state.loans = []
   }
@@ -128,7 +74,6 @@ export const store = createStore<IState>({
   actions,
   getters,
   mutations,
-
   strict: debug
 })
 

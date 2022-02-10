@@ -1,7 +1,7 @@
 <template>
   <PrimaryButton
     size="lg"
-    @click="newLoan"
+    @click="createNewLoan"
   >
     <IconCirclePlus class="h-6 w-6" />
     Start a new loan calculation
@@ -12,7 +12,7 @@
 import { defineComponent } from 'vue'
 import IconCirclePlus from '@/components/IconCirclePlus.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
-import { useStore } from '@/store'
+import useCalculator from '@/composables/useCalculator'
 
 export default defineComponent({
   components: {
@@ -21,11 +21,10 @@ export default defineComponent({
   },
 
   setup () {
-    const { dispatch } = useStore()
-    const newLoan = () => dispatch('newLoan')
+    const { createNewLoan } = useCalculator()
 
     return {
-      newLoan
+      createNewLoan
     }
   }
 })
