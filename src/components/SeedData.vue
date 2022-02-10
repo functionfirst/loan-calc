@@ -34,7 +34,7 @@
 import { defineComponent, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useStore } from '@/store'
-import { loans } from '@/data/seed'
+import { seedLoans } from '@/data/seed'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -52,6 +52,8 @@ export default defineComponent({
     }
 
     const seedData = async () => {
+      const loans = seedLoans()
+
       for (let i = 0; i < loans.length; i++) {
         console.log(`Seeding data for ${loans[i].lender}`)
         await dispatch('createLoan', loans[i])
