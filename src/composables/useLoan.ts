@@ -1,21 +1,10 @@
 import { formatDate } from '@/libs/dates'
 import { formatCurrency } from '@/libs/formatCurrency'
 import { useStore } from '@/store'
-import { computed, ComputedRef } from 'vue'
+import { computed } from 'vue'
+import { IUseLoan } from './useLoan.types'
 
-interface ILoan {
-  baseInterestRate: ComputedRef<number>
-  breakdown: ComputedRef<string>
-  endDate: ComputedRef<string>
-  startDate: ComputedRef<string>
-  lender: ComputedRef<string>
-  loanAmount: ComputedRef<string>
-  margin: ComputedRef<number>
-  totalInterest: ComputedRef<string>
-  editLoan: () => void
-}
-
-export default function useLoan (id: string): ILoan | undefined {
+export default function useLoan (id: string): IUseLoan | undefined {
   const { getters, dispatch } = useStore()
   const editLoan = () => dispatch('editLoan', id)
   const loan = computed(() => getters.loanById(id))
