@@ -1,4 +1,4 @@
-import { ICurrency, ILoanData, IMoney, Loan } from '@/entities'
+import { ILoanData, IMoney } from '@/entities'
 import { guidGenerator } from '@/libs/guid'
 import { Money } from '@/entities/money/money'
 
