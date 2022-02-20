@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
 import BaseButton from '@/components/BaseButton.vue'
 
 export default defineComponent({

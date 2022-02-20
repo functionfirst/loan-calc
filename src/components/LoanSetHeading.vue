@@ -12,18 +12,18 @@
     </DescriptionList>
 
     <DifferentLenderButton
-      v-bind="{ loanAmount, baseInterestRate}"
       class="col-span-2 md:col-span-1 mx-auto md:mr-0"
+      @click="$emit('differentLender')"
     />
   </Card>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { formatCurrency } from '@/libs/formatCurrency'
 import Card from '@/components/Card.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
 import DifferentLenderButton from '@/components/DifferentLenderButton.vue'
-import { formatCurrency } from '@/libs/formatCurrency'
 
 export default defineComponent({
   components: {
@@ -44,10 +44,11 @@ export default defineComponent({
     }
   },
 
-  setup (props) {
+  emits: ['differentLender'],
+
+  setup () {
     return {
-      formatCurrency,
-      props
+      formatCurrency
     }
   }
 })

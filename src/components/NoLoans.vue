@@ -12,7 +12,10 @@
       You have not created any commercial or personal loan calculations
     </p>
 
-    <StartLoanButton class="mx-auto" />
+    <StartLoanButton
+      class="mx-auto"
+      @click="$emit('newLoan')"
+    />
   </div>
 </template>
 
@@ -27,6 +30,8 @@ export default defineComponent({
     Heading,
     IconLicense,
     StartLoanButton
-  }
+  },
+
+  emits: ['newLoan']
 })
 </script>

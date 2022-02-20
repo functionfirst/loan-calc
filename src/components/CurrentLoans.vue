@@ -4,36 +4,21 @@
       Your Loan Calculations
     </Heading>
 
-    <StartLoanButton />
+    <StartLoanButton @click="$emit('newLoan')" />
   </header>
-
-  <LoanSet
-    v-for="(set, index) in loanSets"
-    :key="index"
-    v-bind="set"
-  />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import Heading from '@/components/Heading.vue'
-import LoanSet from '@/components/LoanSet.vue'
 import StartLoanButton from '@/components/StartLoanButton.vue'
-import { useStore } from '@/store'
 
 export default defineComponent({
   components: {
     Heading,
-    LoanSet,
     StartLoanButton
   },
-  setup () {
-    const { getters } = useStore()
-    const loanSets = computed(() => getters.loanSets)
 
-    return {
-      loanSets
-    }
-  }
+  emits: ['newLoan']
 })
 </script>
