@@ -1,7 +1,7 @@
 import { reactive, readonly, ref } from 'vue'
 import { useStore } from 'vuex'
-import { ICurrency, ILoanData } from '@/entities'
-import { IUseCalculator } from './useCalculator.types'
+import type { ICurrency, ILoanData } from '@/entities'
+import type { IUseCalculator } from './useCalculator.types'
 import { Money } from '@/entities/money/money'
 import useModal from './useModal'
 
@@ -21,7 +21,7 @@ const initialLoanState = {
 const loan = reactive({ ...initialLoanState })
 const { isModalOpen, setIsModalOpen } = useModal()
 
-export default function useCalculator (): IUseCalculator {
+export default function useCalculator(): IUseCalculator {
   const { dispatch, getters } = useStore()
   const loading = ref(false)
 

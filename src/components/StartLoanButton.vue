@@ -5,15 +5,9 @@
   </PrimaryButton>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import IconCirclePlus from '@/components/IconCirclePlus.vue'
-import PrimaryButton from '@/components/PrimaryButton.vue'
+<script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
 
-export default defineComponent({
-  components: {
-    IconCirclePlus,
-    PrimaryButton
-  }
-})
+const IconCirclePlus = defineAsyncComponent(() => import('@/components/IconCirclePlus.vue'))
+const PrimaryButton = defineAsyncComponent(() => import('@/components/PrimaryButton.vue'))
 </script>

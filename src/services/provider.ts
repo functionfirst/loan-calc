@@ -1,4 +1,4 @@
-import { LoansService, IProvider } from '@/services'
+import { LoansService, type IProvider } from '@/services'
 
 export const provider = (): IProvider => {
   return {

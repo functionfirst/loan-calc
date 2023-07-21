@@ -1,4 +1,4 @@
-import { ICurrency } from '@/entities'
+import type { ICurrency } from '@/entities'
 import { locales } from '@/libs/locales'
 
 export const formatCurrency = (value: number, currency: ICurrency): string => {
