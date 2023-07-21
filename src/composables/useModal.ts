@@ -1,9 +1,9 @@
 import { readonly, ref, watch } from 'vue'
-import { IUseModal } from './useModal.types'
+import type { IUseModal } from './useModal.types'
 
 const ESCAPE = 'Escape'
 
-export default function useModal (): IUseModal {
+export default function useModal(): IUseModal {
   const isModalOpen = ref(false)
 
   const setIsModalOpen = (toggle: boolean) => {

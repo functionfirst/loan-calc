@@ -1,4 +1,4 @@
-import { ILoanData, IMoney } from '@/entities'
+import type { ILoanData, IMoney } from '@/entities'
 import { guidGenerator } from '@/libs/guid'
 import { Money } from '@/entities/money/money'
 
@@ -19,7 +19,7 @@ class SeedData implements ILoanData {
   readonly lender: string
   readonly margin: number | string
 
-  constructor (amount: number) {
+  constructor(amount: number) {
     this.id = guidGenerator()
     this.loanAmount = new Money({
       amount,

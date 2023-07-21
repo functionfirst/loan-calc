@@ -1,4 +1,4 @@
-import { ICurrency } from '@/entities'
+import type { ICurrency } from '@/entities'
 
 export interface IMoney {
   readonly amount: number

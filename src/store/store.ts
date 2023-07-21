@@ -1,6 +1,6 @@
-import { ILoan, ILoanData } from '@/entities'
+import type { ILoan, ILoanData } from '@/entities'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
-import { IContext, IState, CREATE_LOAN, UPDATE_LOAN, RESET_LOANS } from './store.types'
+import { type IContext, type IState, CREATE_LOAN, UPDATE_LOAN, RESET_LOANS } from './store.types'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -10,19 +10,19 @@ const state = {
 }
 
 const actions = {
-  async updateLoan ({ commit }: IContext, payload: ILoanData) {
+  async updateLoan({ commit }: IContext, payload: ILoanData) {
     const loan = store.$services.loans.create(payload)
     const loans = state.loans.map((item: ILoanData) => item.id === payload.id ? loan : item)
     commit(UPDATE_LOAN, loans)
   },
 
-  createLoan ({ commit }: IContext, payload: ILoanData): ILoan {
+  createLoan({ commit }: IContext, payload: ILoanData): ILoan {
     const loan = store.$services.loans.create(payload)
     commit(CREATE_LOAN, loan)
     return loan
   },
 
-  resetLoans ({ commit }: IContext): void {
+  resetLoans({ commit }: IContext): void {
     commit(RESET_LOANS)
   }
 }
@@ -56,15 +56,15 @@ const getters = {
 }
 
 const mutations = {
-  [CREATE_LOAN] (state: IState, loan: ILoanData) {
+  [CREATE_LOAN](state: IState, loan: ILoanData) {
     state.loans.push(loan)
   },
 
-  [UPDATE_LOAN] (state: IState, loans: ILoanData[]) {
+  [UPDATE_LOAN](state: IState, loans: ILoanData[]) {
     state.loans = loans
   },
 
-  [RESET_LOANS] (state: IState) {
+  [RESET_LOANS](state: IState) {
     state.loans = []
   }
 }

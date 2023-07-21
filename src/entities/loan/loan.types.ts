@@ -1,4 +1,4 @@
-import { IBreakdown, IMoney } from '@/entities'
+import type { IBreakdown, IMoney } from '@/entities'
 
 export interface ILoanData {
   readonly id: string

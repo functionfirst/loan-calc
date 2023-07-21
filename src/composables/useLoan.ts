@@ -2,9 +2,9 @@ import { formatDate } from '@/libs/dates'
 import { formatCurrency } from '@/libs/formatCurrency'
 import { useStore } from '@/store'
 import { computed } from 'vue'
-import { IUseLoan } from './useLoan.types'
+import type { IUseLoan } from './useLoan.types'
 
-export default function useLoan (id: string): IUseLoan | undefined {
+export default function useLoan(id: string): IUseLoan | undefined {
   const { getters, dispatch } = useStore()
   const editLoan = () => dispatch('editLoan', id)
   const loan = computed(() => getters.loanById(id))

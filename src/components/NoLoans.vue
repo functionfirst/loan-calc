@@ -19,19 +19,12 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import Heading from '@/components/Heading.vue'
-import IconLicense from '@/components/IconLicense.vue'
-import StartLoanButton from '@/components/StartLoanButton.vue'
+<script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
 
-export default defineComponent({
-  components: {
-    Heading,
-    IconLicense,
-    StartLoanButton
-  },
+const Heading = defineAsyncComponent(() => import('@/components/Heading.vue'))
+const IconLicense = defineAsyncComponent(() => import('@/components/IconLicense.vue'))
+const StartLoanButton = defineAsyncComponent(() => import('@/components/StartLoanButton.vue'))
 
-  emits: ['newLoan']
-})
+defineEmits(['newLoan'])
 </script>

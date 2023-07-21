@@ -1,4 +1,4 @@
-import { IBreakdown, ILoan, ILoanData, IMoney } from '@/entities'
+import type { IBreakdown, ILoan, ILoanData, IMoney } from '@/entities'
 import { diffInMonths, diffInDays } from '@/libs/dates'
 import { Breakdown } from '../breakdown'
 import { dailyInterestPercentage } from '@/libs/finance'
@@ -16,7 +16,7 @@ export class Loan implements ILoan {
   readonly breakdown: IBreakdown[]
   readonly period: number
 
-  constructor (data: ILoanData) {
+  constructor(data: ILoanData) {
     const validStartAndEndDate = diffInDays(data.endDate.toString(), data.startDate.toString()) >= 1
 
     if (!validStartAndEndDate) {
@@ -34,31 +34,31 @@ export class Loan implements ILoan {
     this.period = diffInMonths(data.endDate.toString(), data.startDate.toString())
   }
 
-  get dailyInterestPercentage (): number {
+  get dailyInterestPercentage(): number {
     return dailyInterestPercentage(+this.baseInterestRate)
   }
 
-  get dailyInterest (): number {
+  get dailyInterest(): number {
     return this.loanAmount.amount * this.dailyInterestPercentage
   }
 
-  get dailyInterestWithMargin (): number {
+  get dailyInterestWithMargin(): number {
     return this.dailyInterest + (this.dailyInterest * (+this.margin / 100))
   }
 
-  get loanPeriodInDays (): number {
+  get loanPeriodInDays(): number {
     return diffInDays(this.endDate.toString(), this.startDate.toString())
   }
 
-  get lastPayment (): IBreakdown {
+  get lastPayment(): IBreakdown {
     return this.breakdown[this.breakdown.length - 1]
   }
 
-  get totalInterest (): IMoney {
+  get totalInterest(): IMoney {
     return this.lastPayment.interest
   }
 
-  dayBreakdown (day: number): IBreakdown {
+  dayBreakdown(day: number): IBreakdown {
     const data = {
       interest: this.dailyInterest * day,
       withoutMargin: this.dailyInterest,
@@ -70,7 +70,7 @@ export class Loan implements ILoan {
     return dayBreakdown
   }
 
-  calculateBreakdown (): IBreakdown[] {
+  calculateBreakdown(): IBreakdown[] {
     // @todo improve performance by moving this calculation off the main thread using a web worker?
     const breakdown = []
 

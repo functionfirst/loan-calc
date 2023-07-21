@@ -1,4 +1,4 @@
-import { IMoney } from '@/entities'
+import type { IMoney } from '@/entities'
 
 export interface IBreakdownData {
   readonly interest: number
