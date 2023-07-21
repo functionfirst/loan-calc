@@ -1,11 +1,11 @@
 <template>
   <header class="mb-6">
-    <Heading>
+    <BaseHeading>
       <template v-if="lender">
         {{ lender }} -
       </template>
       Loan Details
-    </Heading>
+    </BaseHeading>
 
     <BaseLink
       to="/"
@@ -19,12 +19,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BaseLink from '@/components/BaseLink.vue'
-import Heading from '@/components/Heading.vue'
+import BaseHeading from '@/components/BaseHeading.vue'
 
 export default defineComponent({
   components: {
     BaseLink,
-    Heading
+    BaseHeading
   },
 
   props: {

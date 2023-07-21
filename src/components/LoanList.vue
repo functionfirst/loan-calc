@@ -1,5 +1,5 @@
 <template>
-  <Card>
+  <BaseCard>
     <RT>
       <template #thead>
         <RHCPinned class="w-1/4 text-left">
@@ -38,13 +38,13 @@
         </tr>
       </template>
     </RT>
-  </Card>
+  </BaseCard>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BaseLink from '@/components/BaseLink.vue'
-import Card from '@/components/Card.vue'
+import BaseCard from '@/components/BaseCard.vue'
 import RT from '@/components/ResponsiveTable.vue'
 import RBC from '@/components/ResponsiveBodyCell.vue'
 import RBCPinned from '@/components/ResponsiveBodyCellPinned.vue'
@@ -55,7 +55,7 @@ import { formatCurrency } from '@/libs/formatCurrency'
 export default defineComponent({
   components: {
     BaseLink,
-    Card,
+    BaseCard,
     RT,
     RBC,
     RBCPinned,
@@ -70,7 +70,7 @@ export default defineComponent({
     }
   },
 
-  setup () {
+  setup() {
     return {
       formatCurrency
     }

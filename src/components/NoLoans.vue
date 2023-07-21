@@ -1,8 +1,8 @@
 <template>
   <div class="max-w-md mx-auto text-center grid gap-6 mt-8">
-    <Heading>
+    <BaseHeading>
       No Loan Calculations Created
-    </Heading>
+    </BaseHeading>
 
     <div class="mx-auto rounded-full bg-gray-400 flex items-center justify-center text-white h-48 w-48">
       <IconLicense class="w-24 h-24" />
@@ -20,11 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
-
-const Heading = defineAsyncComponent(() => import('@/components/Heading.vue'))
-const IconLicense = defineAsyncComponent(() => import('@/components/IconLicense.vue'))
-const StartLoanButton = defineAsyncComponent(() => import('@/components/StartLoanButton.vue'))
+import BaseHeading from '@/components/BaseHeading.vue'
+import IconLicense from '@/components/IconLicense.vue'
+import StartLoanButton from '@/components/StartLoanButton.vue'
 
 defineEmits(['newLoan'])
 </script>

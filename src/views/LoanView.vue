@@ -2,20 +2,20 @@
   <div class="flex flex-col relative max-h-screen p-4 md:p-6">
     <LoanDetailsHeading :lender="lender" />
 
-    <Card class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-center p-4 md:p-6">
+    <BaseCard class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-center p-4 md:p-6">
       <LoanDetailsOptions
         v-bind="{ loanAmount, margin, baseInterestRate, startDate, endDate }"
         @editLoan="edit"
       />
-    </Card>
+    </BaseCard>
 
     <HeadingWithMargin tag="h2">
       Breakdown of loan over its lifetime
     </HeadingWithMargin>
 
-    <Card class="flex-1 overflow-hidden">
+    <BaseCard class="flex-1 overflow-hidden">
       <LoanDetailsBreakdown :breakdown="breakdown" />
-    </Card>
+    </BaseCard>
 
     <LoanDetailsTotalInterest :total-interest="totalInterest" />
   </div>
@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Card from '@/components/Card.vue'
+import BaseCard from '@/components/BaseCard.vue'
 import HeadingWithMargin from '@/components/HeadingWithMargin.vue'
 import LoanDetailsBreakdown from '@/components/LoanDetailsBreakdown.vue'
 import LoanDetailsTotalInterest from '@/components/LoanDetailsTotalInterest.vue'
@@ -35,7 +35,7 @@ import useCalculator from '@/composables/useCalculator'
 
 export default defineComponent({
   components: {
-    Card,
+    BaseCard,
     LoanDetailsHeading,
     HeadingWithMargin,
     LoanDetailsTotalInterest,
@@ -43,7 +43,7 @@ export default defineComponent({
     LoanDetailsOptions
   },
 
-  setup () {
+  setup() {
     const { editLoan } = useCalculator()
     const { params } = useRoute()
     const id = params.id.toString()

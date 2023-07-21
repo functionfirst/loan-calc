@@ -1,19 +1,19 @@
 <template>
-  <Heading
+  <BaseHeading
     :tag="tag"
     class="mt-6 mb-1"
   >
     <slot />
-  </Heading>
+  </BaseHeading>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Heading from '@/components/Heading.vue'
+import BaseHeading from '@/components/BaseHeading.vue'
 
 export default defineComponent({
   components: {
-    Heading
+    BaseHeading
   },
 
   props: {

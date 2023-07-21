@@ -1,14 +1,14 @@
 <template>
-  <Modal
+  <ModalDialog
     :is-open="isModalOpen"
     @close="setIsModalOpen(false)"
   >
-    <Heading
+    <BaseHeading
       tag="h2"
       class="text-center md:text-left mb-4"
     >
       {{ loan.id ? 'Update' : 'Calculate' }} a commercial or personal loan.
-    </Heading>
+    </BaseHeading>
 
     <form
       class="grid md:grid-cols-2 gap-6"
@@ -92,15 +92,15 @@
         class="w-full justify-center md:col-span-2"
         :disabled="loading"
       >
-        <Loading :loading="loading">
+        <BaseLoading :loading="loading">
           <template #loader>
             Calculating...
           </template>
           {{ loan.id ? 'Save Changes' : 'Calculate Loan' }}
-        </Loading>
+        </BaseLoading>
       </PrimaryButton>
     </form>
-  </Modal>
+  </ModalDialog>
 </template>
 
 <script lang="ts">
@@ -110,9 +110,9 @@ import BaseInputCurrency from '@/components/BaseInputCurrency.vue'
 import BaseInputPercentage from '@/components/BaseInputPercentage.vue'
 import BaseLabel from '@/components/BaseLabel.vue'
 import FormRow from '@/components/FormRow.vue'
-import Heading from '@/components/Heading.vue'
-import Loading from '@/components/Loading.vue'
-import Modal from '@/components/Modal.vue'
+import BaseHeading from '@/components/BaseHeading.vue'
+import BaseLoading from '@/components/BaseLoading.vue'
+import ModalDialog from '@/components/ModalDialog.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
 import useCalculator from '@/composables/useCalculator'
 
@@ -122,14 +122,14 @@ export default defineComponent({
     BaseInputPercentage,
     BaseLabel,
     FormRow,
-    Heading,
+    BaseHeading,
     BaseInput,
-    Loading,
-    Modal,
+    BaseLoading,
+    ModalDialog,
     PrimaryButton
   },
 
-  setup () {
+  setup() {
     const { isModalOpen, setIsModalOpen, loading, loan, saveLoan } = useCalculator()
 
     return {

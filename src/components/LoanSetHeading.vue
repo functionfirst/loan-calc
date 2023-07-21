@@ -1,5 +1,5 @@
 <template>
-  <Card class="grid grid-cols-2 md:grid-cols-3 gap-6 items-center justify-between p-4 md:p-6">
+  <BaseCard class="grid grid-cols-2 md:grid-cols-3 gap-6 items-center justify-between p-4 md:p-6">
     <DescriptionList label="Loan Amount">
       {{ formatCurrency(loanAmount.amount, loanAmount.currency) }}
     </DescriptionList>
@@ -15,19 +15,19 @@
       class="col-span-2 md:col-span-1 mx-auto md:mr-0"
       @click="$emit('differentLender')"
     />
-  </Card>
+  </BaseCard>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { formatCurrency } from '@/libs/formatCurrency'
-import Card from '@/components/Card.vue'
+import BaseCard from '@/components/BaseCard.vue'
 import DescriptionList from '@/components/DescriptionList.vue'
 import DifferentLenderButton from '@/components/DifferentLenderButton.vue'
 
 export default defineComponent({
   components: {
-    Card,
+    BaseCard,
     DescriptionList,
     DifferentLenderButton
   },
@@ -46,7 +46,7 @@ export default defineComponent({
 
   emits: ['differentLender'],
 
-  setup () {
+  setup() {
     return {
       formatCurrency
     }
