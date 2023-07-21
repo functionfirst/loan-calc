@@ -1,6 +1,6 @@
-import { Ref } from 'vue'
-import { ILoanData } from '@/entities'
-import { IUseModal } from './useModal.types'
+import type { Ref } from 'vue'
+import type { ILoanData } from '@/entities'
+import type { IUseModal } from './useModal.types'
 
 export interface IUseCalculator extends IUseModal {
   createNewLoan: (data?: ILoanData) => void
