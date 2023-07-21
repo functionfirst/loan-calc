@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   purge: [
     './src/views/**/*.vue',
     './src/components/**/*.vue',
